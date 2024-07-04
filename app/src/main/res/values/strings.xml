@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Story App</string>
+    <string name="app_name" translatable="false">Story App</string>
+    <string name="head_welcome">Welcome to </string>
+    <string name="body_welcome">You can enjoy the feature of sharing stories and viewing other people\'s stories from this application</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
 </resources>

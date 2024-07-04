@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="head_welcome">Selamat Datang di </string>
+    <string name="body_welcome">Anda dapat menikmati fitur membagikan story dan melihat story orang lain dari aplikasi ini</string>
+    <string name="login">Masuk</string>
+    <string name="register">Daftar</string>
+</resources>
