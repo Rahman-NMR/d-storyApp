@@ -6,13 +6,12 @@ import android.os.Bundle
 import android.view.ViewTreeObserver
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.android.material.snackbar.Snackbar
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityWelcomeBinding
+import com.rahman.storyapp.ui.auth.AuthActivity
 
 class WelcomeActivity : AppCompatActivity() {
     private var _binding: ActivityWelcomeBinding? = null
@@ -33,20 +32,13 @@ class WelcomeActivity : AppCompatActivity() {
             insets
         }
 
-        val sharedPref = getSharedPreferences("login", Context.MODE_PRIVATE)
-        val isLogin = sharedPref.getBoolean("isLogin", false)
-        val startActiviti = {
-            startActivity(Intent(this@WelcomeActivity, MainActivity::class.java))
-            finish()
-        }
-
         val content = binding.root
         content.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
             override fun onPreDraw(): Boolean {
                 return if (splashOpen) { /*isLoading view model disini?*/
                     content.viewTreeObserver.removeOnPreDrawListener(this)
 
-                    if (isLogin) startActiviti()
+                    loginSession()
                     true
                 } else {
                     false
@@ -55,18 +47,34 @@ class WelcomeActivity : AppCompatActivity() {
         })
 
         binding.btnLogin.setOnClickListener {
-            sharedPref.edit().putBoolean("isLogin", true).apply()
-            startActiviti()
+            val intent = Intent(this, AuthActivity::class.java)
+            intent.putExtra("FRAGMENT", 1)
+
+            startActivity(intent)
         }
-        binding.btnRegister.setOnClickListener { view ->
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            Snackbar.make(view, "Aktifkan Night mode", Snackbar.LENGTH_LONG)
-                .setAction("Apply") {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                }.show()
+        binding.btnRegister.setOnClickListener {
+            val intent = Intent(this, AuthActivity::class.java)
+            intent.putExtra("FRAGMENT", 2)
+
+            startActivity(intent)
         }
 
         splashOpen = true
+    }
+
+    private fun loginSession() {
+        val sharedPref = getSharedPreferences("login", Context.MODE_PRIVATE)
+        val isLogin = sharedPref.getBoolean("isLogin", false)
+
+        if (isLogin) {
+            startActivity(Intent(this@WelcomeActivity, MainActivity::class.java))
+            finish()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loginSession()
     }
 
     override fun onDestroy() {
