@@ -1,6 +1,5 @@
-package com.rahman.storyapp.ui
+package com.rahman.storyapp.ui.stories
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -9,6 +8,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityMainBinding
+import com.rahman.storyapp.ui.CustomSystemView
+import com.rahman.storyapp.ui.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
@@ -18,18 +19,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         _binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        setContentView(binding.root)
+        CustomSystemView.edgeToEdge(findViewById(R.id.main_main))
 
         val sharedPref = getSharedPreferences("login", Context.MODE_PRIVATE)
 
-        binding.fab.setOnClickListener {
-            sharedPref.edit().putBoolean("isLogin", false).apply()
+        binding.fabAddStory.setOnClickListener {
             startActivity(Intent(this, WelcomeActivity::class.java))
             finish()
         }
