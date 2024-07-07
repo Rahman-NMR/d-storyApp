@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">アプリ ストーリー</string>
+    <string name="head_welcome">ストーリー アプリへようこそ</string>
+    <string name="body_welcome">このアプリケーションからストーリーを共有したり、他の人のストーリーを閲覧したりする機能をお楽しみいただけます。</string>
+    <string name="login">ログイン</string>
+    <string name="register">登録</string>
+    <string name="name">名前</string>
+    <string name="email">メールアドレス</string>
+    <string name="password">パスワード</string>
+</resources>

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="head_welcome">Selamat Datang di </string>
-    <string name="body_welcome">Anda dapat menikmati fitur membagikan story dan melihat story orang lain dari aplikasi ini</string>
+    <string name="app_name">Story App</string>
+    <string name="head_welcome">Selamat Datang di Story App</string>
+    <string name="body_welcome">Anda dapat menikmati fitur membagikan story dan melihat story orang lain dari aplikasi ini.</string>
     <string name="login">Masuk</string>
     <string name="register">Daftar</string>
+    <string name="name">Nama</string>
+    <string name="email">Email</string>
+    <string name="password">Kata Sandi</string>
 </resources>
