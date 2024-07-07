@@ -1,6 +1,7 @@
 package com.rahman.storyapp.ui
 
-import android.content.Context
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -44,8 +45,31 @@ class WelcomeActivity : AppCompatActivity() {
 
         binding.btnLogin.setOnClickListener { startActivity(Intent(this, LoginActivity::class.java)) }
         binding.btnRegister.setOnClickListener { startActivity(Intent(this, RegisterActivity::class.java)) }
+        playAnimation()
 
         splashOpen = true
+    }
+
+    private fun playAnimation() {
+        ObjectAnimator.ofFloat(binding.imgWelcome, View.TRANSLATION_X, -30f, 30f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+
+        val login = ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1f).setDuration(300)
+        val signup = ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(300)
+        val title = ObjectAnimator.ofFloat(binding.tvTitle, View.ALPHA, 1f).setDuration(300)
+        val desc = ObjectAnimator.ofFloat(binding.tvDesc, View.ALPHA, 1f).setDuration(300)
+
+        val together = AnimatorSet().apply {
+            playTogether(login, signup)
+        }
+
+        AnimatorSet().apply {
+            playSequentially(title, desc, together)
+            start()
+        }
     }
 
     private fun loginSession() {
