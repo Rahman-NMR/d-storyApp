@@ -8,4 +8,10 @@
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="insert_name">Enter your name</string>
+    <string name="insert_email">Enter your email</string>
+    <string name="insert_password">Enter your password</string>
+    <string name="error_name">Name must be more than 3 characters.</string>
+    <string name="error_email">Email does not match format.</string>
+    <string name="error_password">Password is less than 8 characters.</string>
 </resources>

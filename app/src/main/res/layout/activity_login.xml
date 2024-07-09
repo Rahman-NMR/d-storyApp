@@ -5,6 +5,7 @@
     android:id="@+id/main_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".ui.auth.LoginActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -32,46 +33,76 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="32dp"
-            android:paddingVertical="64dp">
+            android:paddingTop="32dp"
+            android:paddingBottom="@dimen/bottom_padding">
 
-            <EditText
-                android:id="@+id/ed_login_email"
-                android:layout_width="match_parent"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_login_email"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/email"
-                android:inputType="text|textEmailAddress"
+                android:paddingHorizontal="4dp"
+                android:paddingVertical="8dp"
+                android:text="@string/email"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="488dp" />
 
-            <EditText
-                android:id="@+id/ed_login_password"
-                android:layout_width="match_parent"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_login_password"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="@string/password"
+                android:paddingHorizontal="4dp"
+                android:paddingVertical="8dp"
+                android:text="@string/password"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_login_email"
+                app:layout_constraintWidth_max="488dp" />
+
+            <com.rahman.storyapp.ui.CustomEditText
+                android:id="@+id/ed_login_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/insert_email"
+                android:inputType="text|textEmailAddress"
+                android:selectAllOnFocus="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_login_email"
+                app:layout_constraintWidth_max="488dp" />
+
+            <com.rahman.storyapp.ui.CustomEditText
+                android:id="@+id/ed_login_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/insert_password"
                 android:inputType="text|textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ed_login_email" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_login_password"
+                app:layout_constraintWidth_max="488dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/action_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/login"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/ed_login_password"
                 app:layout_constraintTop_toBottomOf="@+id/ed_login_password" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
+    <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/login_progressbar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminate="true" />
+        android:layout_gravity="bottom"
+        android:indeterminate="true"
+        app:layout_anchor="@id/app_bar_login"
+        app:layout_anchorGravity="bottom" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

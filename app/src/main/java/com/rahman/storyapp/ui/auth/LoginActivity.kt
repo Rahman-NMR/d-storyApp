@@ -7,9 +7,8 @@ import android.os.Looper
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.rahman.storyapp.R
+import com.google.android.material.snackbar.Snackbar
 import com.rahman.storyapp.databinding.ActivityLoginBinding
-import com.rahman.storyapp.ui.CustomSystemView
 import com.rahman.storyapp.ui.stories.MainActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -20,18 +19,28 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         _binding = ActivityLoginBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
-        CustomSystemView.edgeToEdge(findViewById(R.id.main_login))
 
         binding.topAppBarLogin.setNavigationOnClickListener { finish() }
         binding.loginProgressbar.visibility = View.GONE
         binding.actionLogin.setOnClickListener {
-            binding.loginProgressbar.visibility = View.VISIBLE
-            Handler(Looper.getMainLooper()).postDelayed({
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }, 1500)
+            val email = binding.edLoginEmail.text.toString().trim()
+            val password = binding.edLoginPassword.text.toString()
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                if (binding.edLoginEmail.error == null && binding.edLoginPassword.error == null) {
+                    binding.loginProgressbar.visibility = View.VISIBLE
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }, 1500)
+                } else {
+                    val snackbar = Snackbar.make(binding.root, "Pastikan tidak ada pesan error", Snackbar.LENGTH_SHORT)
+                    snackbar.setAction("Oke") { snackbar.dismiss() }.show()
+                }
+            } else {
+                val snackbar = Snackbar.make(binding.root, "Harap mengisi semua form", Snackbar.LENGTH_SHORT)
+                snackbar.setAction("Oke") { snackbar.dismiss() }.show()
+            }
         }
     }
 

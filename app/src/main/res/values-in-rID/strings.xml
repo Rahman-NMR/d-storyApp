@@ -8,4 +8,10 @@
     <string name="name">Nama</string>
     <string name="email">Email</string>
     <string name="password">Kata Sandi</string>
+    <string name="insert_name">Masukkan nama Anda</string>
+    <string name="insert_email">Masukkan email Anda</string>
+    <string name="insert_password">Masukkan kata sandi Anda</string>
+    <string name="error_name">Nama harus lebih dari 3 karakter.</string>
+    <string name="error_email">Email tidak sesuai format.</string>
+    <string name="error_password">Kata sandi kurang dari 8 karakter.</string>
 </resources>
