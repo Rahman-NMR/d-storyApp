@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Theme.StoryApp.splash" parent="BaseTheme.StoryApp.splash">
-        <!--        <item name="windowSplashScreenAnimatedIcon">@drawable/icon_splash_light</item>-->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
         <item name="postSplashScreenTheme">@style/Theme.StoryApp</item>
     </style>
 </resources>
