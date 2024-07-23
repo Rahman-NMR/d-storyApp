@@ -14,4 +14,7 @@
     <string name="error_name">Name must be more than 3 characters.</string>
     <string name="error_email">Email does not match format.</string>
     <string name="error_password">Password is less than 8 characters.</string>
+    <string name="show_password">Show password</string>
+    <string name="create_account">Create account</string>
+    <string name="login_now">Login now</string>
 </resources>

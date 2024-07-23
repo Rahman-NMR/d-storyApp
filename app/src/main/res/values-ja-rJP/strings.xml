@@ -8,10 +8,13 @@
     <string name="name">名前</string>
     <string name="email">メールアドレス</string>
     <string name="password">パスワード</string>
-    <string name="insert_name">名前を入力してください</string>
+    <string name="insert_name">ネームを入力してください</string>
     <string name="insert_email">メールアドレスを入力してください</string>
     <string name="insert_password">パスワードを入力してください</string>
-    <string name="error_name">名前は 3 文字以上である必要があります。</string>
-    <string name="error_email">電子メールの形式が一致しません。</string>
+    <string name="error_name">ネームは 3 文字以上である必要があります。</string>
+    <string name="error_email">メールアドレスの形式が一致しません。</string>
     <string name="error_password">パスワードは 8 文字未満です。</string>
+    <string name="show_password">パスワードを表示</string>
+    <string name="create_account">アカウントを作成</string>
+    <string name="login_now">ここでログイン</string>
 </resources>
