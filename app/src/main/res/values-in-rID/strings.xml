@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Story App</string>
-    <string name="head_welcome">Selamat Datang di Story App</string>
-    <string name="body_welcome">Anda dapat menikmati fitur membagikan story dan melihat story orang lain dari aplikasi ini.</string>
+    <string name="title_welcome">Selamat Datang di Story App</string>
+    <string name="desc_welcome">Anda dapat membagikan story dan melihat story pengguna lain dari aplikasi ini.</string>
+    <string name="desc_login">Ayo lihat dan bagikan story Anda.</string>
+    <string name="desc_register">Bergabunglah bersama kami untuk membagikan story.</string>
     <string name="login">Masuk</string>
     <string name="register">Daftar</string>
     <string name="name">Nama</string>
@@ -17,4 +19,5 @@
     <string name="show_password">Tampilkan kata sandi</string>
     <string name="create_account">Buat akun</string>
     <string name="login_now">Masuk sekarang</string>
+    <string name="add_stories">Tambah Cerita</string>
 </resources>

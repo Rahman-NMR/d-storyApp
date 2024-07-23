@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">アプリ ストーリー</string>
-    <string name="head_welcome">ストーリー アプリへようこそ</string>
-    <string name="body_welcome">このアプリケーションからストーリーを共有したり、他の人のストーリーを閲覧したりする機能をお楽しみいただけます。</string>
+    <string name="title_welcome">ストーリー アプリへようこそ</string>
+    <string name="desc_welcome">このアプリケーションからストーリーを共有したり、他のユーザーのストーリーを表示したりできます。</string>
+    <string name="desc_login">ぜひあなたのストーリーを見て共有してください。</string>
+    <string name="desc_register">参加してあなたのストーリーを共有してください。</string>
     <string name="login">ログイン</string>
-    <string name="register">登録</string>
-    <string name="name">名前</string>
+    <string name="register">レジスター</string>
+    <string name="name">ネーム</string>
     <string name="email">メールアドレス</string>
     <string name="password">パスワード</string>
     <string name="insert_name">ネームを入力してください</string>
@@ -17,4 +19,5 @@
     <string name="show_password">パスワードを表示</string>
     <string name="create_account">アカウントを作成</string>
     <string name="login_now">ここでログイン</string>
+    <string name="add_stories">ストーリーを追加</string>
 </resources>

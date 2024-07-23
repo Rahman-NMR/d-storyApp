@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Story App</string>
-    <string name="head_welcome">Welcome to Story App</string>
-    <string name="body_welcome">You can enjoy the feature of sharing stories and viewing other people\'s stories from this application.</string>
+    <string name="title_welcome">Welcome to Story App</string>
+    <string name="desc_welcome">You can share stories and view other users\' stories from this application.</string>
+    <string name="desc_login">Come see and share your story.</string>
+    <string name="desc_register">Join us to share your story.</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="name">Name</string>
@@ -17,4 +19,5 @@
     <string name="show_password">Show password</string>
     <string name="create_account">Create account</string>
     <string name="login_now">Login now</string>
+    <string name="add_stories">Add Stories</string>
 </resources>
