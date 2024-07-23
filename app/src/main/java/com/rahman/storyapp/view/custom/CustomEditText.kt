@@ -1,4 +1,4 @@
-package com.rahman.storyapp.ui
+package com.rahman.storyapp.view.custom
 
 import android.content.Context
 import android.graphics.Canvas
@@ -7,7 +7,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.Patterns
-import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.rahman.storyapp.R
@@ -68,7 +67,7 @@ class CustomEditText @JvmOverloads constructor(
         super.onDraw(canvas)
         minHeight = resources.getDimensionPixelSize(R.dimen.min_height)
         background = ContextCompat.getDrawable(context, R.drawable.bg_edittext_stroke2_8)
-        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
+        textAlignment = TEXT_ALIGNMENT_VIEW_START
     }
 
     private fun setButtonDrawables(start: Drawable? = null, top: Drawable? = null, end: Drawable? = null, bottom: Drawable? = null) {

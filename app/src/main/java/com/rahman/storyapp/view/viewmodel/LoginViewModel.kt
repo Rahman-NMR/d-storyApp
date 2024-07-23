@@ -1,4 +1,4 @@
-package com.rahman.storyapp.ui.auth
+package com.rahman.storyapp.view.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

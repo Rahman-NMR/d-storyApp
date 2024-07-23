@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".ui.auth.LoginActivity">
+    tools:context=".view.ui.auth.LoginActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_login"
@@ -95,7 +95,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/ed_login_email"
                 app:layout_constraintWidth_max="488dp" />
 
-            <com.rahman.storyapp.ui.CustomEditText
+            <com.rahman.storyapp.view.custom.CustomEditText
                 android:id="@+id/ed_login_email"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_login_email"
                 app:layout_constraintWidth_max="488dp" />
 
-            <com.rahman.storyapp.ui.CustomEditText
+            <com.rahman.storyapp.view.custom.CustomEditText
                 android:id="@+id/ed_login_password"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

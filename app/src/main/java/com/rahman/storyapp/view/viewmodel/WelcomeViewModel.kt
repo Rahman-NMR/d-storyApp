@@ -1,4 +1,4 @@
-package com.rahman.storyapp.ui
+package com.rahman.storyapp.view.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.rahman.storyapp.data.repository.UserRepository

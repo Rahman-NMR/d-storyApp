@@ -1,4 +1,4 @@
-package com.rahman.storyapp.ui
+package com.rahman.storyapp.view.ui.stories
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

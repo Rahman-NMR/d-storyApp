@@ -1,10 +1,9 @@
-package com.rahman.storyapp.ui.auth
+package com.rahman.storyapp.view.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.rahman.storyapp.data.repository.UserRepository
-import com.rahman.storyapp.ui.WelcomeViewModel
-import com.rahman.storyapp.ui.stories.StoriesViewModel
+import com.rahman.storyapp.view.ui.stories.StoriesViewModel
 
 class ViewModelFactory(private val userRepository: UserRepository) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")

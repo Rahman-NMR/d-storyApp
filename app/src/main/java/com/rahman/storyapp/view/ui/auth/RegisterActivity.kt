@@ -1,4 +1,4 @@
-package com.rahman.storyapp.ui.auth
+package com.rahman.storyapp.view.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +12,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityRegisterBinding
 import com.rahman.storyapp.di.Injection
+import com.rahman.storyapp.view.viewmodel.RegisterViewModel
+import com.rahman.storyapp.view.viewmodel.ViewModelFactory
 
 class RegisterActivity : AppCompatActivity() {
     private var _binding: ActivityRegisterBinding? = null

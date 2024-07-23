@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".ui.auth.RegisterActivity">
+    tools:context=".view.ui.auth.RegisterActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_register"
@@ -109,7 +109,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/ed_register_email"
                 app:layout_constraintWidth_max="488dp" />
 
-            <com.rahman.storyapp.ui.CustomEditText
+            <com.rahman.storyapp.view.custom.CustomEditText
                 android:id="@+id/ed_register_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_register_name"
                 app:layout_constraintWidth_max="488dp" />
 
-            <com.rahman.storyapp.ui.CustomEditText
+            <com.rahman.storyapp.view.custom.CustomEditText
                 android:id="@+id/ed_register_email"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_register_email"
                 app:layout_constraintWidth_max="488dp" />
 
-            <com.rahman.storyapp.ui.CustomEditText
+            <com.rahman.storyapp.view.custom.CustomEditText
                 android:id="@+id/ed_register_password"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

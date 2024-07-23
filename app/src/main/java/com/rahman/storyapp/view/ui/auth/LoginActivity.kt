@@ -1,4 +1,4 @@
-package com.rahman.storyapp.ui.auth
+package com.rahman.storyapp.view.ui.auth
 
 import android.os.Bundle
 import android.text.InputType
@@ -11,6 +11,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityLoginBinding
 import com.rahman.storyapp.di.Injection
+import com.rahman.storyapp.view.viewmodel.LoginViewModel
+import com.rahman.storyapp.view.viewmodel.ViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
     private var _binding: ActivityLoginBinding? = null

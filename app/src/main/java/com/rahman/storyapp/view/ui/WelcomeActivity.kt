@@ -1,4 +1,4 @@
-package com.rahman.storyapp.ui
+package com.rahman.storyapp.view.ui
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -11,10 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.rahman.storyapp.databinding.ActivityWelcomeBinding
 import com.rahman.storyapp.di.Injection
-import com.rahman.storyapp.ui.auth.LoginActivity
-import com.rahman.storyapp.ui.auth.RegisterActivity
-import com.rahman.storyapp.ui.auth.ViewModelFactory
-import com.rahman.storyapp.ui.stories.MainActivity
+import com.rahman.storyapp.view.ui.auth.LoginActivity
+import com.rahman.storyapp.view.ui.auth.RegisterActivity
+import com.rahman.storyapp.view.viewmodel.ViewModelFactory
+import com.rahman.storyapp.view.ui.stories.MainActivity
+import com.rahman.storyapp.view.viewmodel.WelcomeViewModel
 import kotlinx.coroutines.runBlocking
 
 class WelcomeActivity : AppCompatActivity() {
