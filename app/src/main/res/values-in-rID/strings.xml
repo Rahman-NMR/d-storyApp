@@ -20,4 +20,7 @@
     <string name="create_account">Buat akun</string>
     <string name="login_now">Masuk sekarang</string>
     <string name="add_stories">Tambah Cerita</string>
+    <string name="msg_error_form">Pastikan tidak ada pesan error.</string>
+    <string name="msg_empty_form">Harap mengisi semua form.</string>
+    <string name="oke">Oke</string>
 </resources>

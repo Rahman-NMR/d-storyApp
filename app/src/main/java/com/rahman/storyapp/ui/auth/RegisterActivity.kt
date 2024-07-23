@@ -2,13 +2,16 @@ package com.rahman.storyapp.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.text.InputType
 import android.view.View
-import androidx.activity.enableEdgeToEdge
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
+import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityRegisterBinding
+import com.rahman.storyapp.di.Injection
 
 class RegisterActivity : AppCompatActivity() {
     private var _binding: ActivityRegisterBinding? = null
@@ -16,32 +19,61 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         _binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.topAppBarRegister.setNavigationOnClickListener { finish() }
-        binding.registerProgressbar.visibility = View.GONE
-        binding.actionRegister.setOnClickListener {
-            val name = binding.edRegisterName.text.toString().trim()
-            val email = binding.edRegisterEmail.text.toString().trim()
-            val password = binding.edRegisterPassword.text.toString()
-            if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-                if (binding.edRegisterName.error == null && binding.edRegisterEmail.error == null && binding.edRegisterPassword.error == null) {
-                    binding.registerProgressbar.visibility = View.VISIBLE
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        startActivity(Intent(this, LoginActivity::class.java))
-                        finish()
-                    }, 1500)
-                } else {
-                    val snackbar = Snackbar.make(binding.root, "Pastikan tidak ada pesan error", Snackbar.LENGTH_SHORT)
-                    snackbar.setAction("Oke") { snackbar.dismiss() }.show()
-                }
-            } else {
-                val snackbar = Snackbar.make(binding.root, "Harap mengisi semua form", Snackbar.LENGTH_SHORT)
-                snackbar.setAction("Oke") { snackbar.dismiss() }.show()
+        val viewModelFactory = ViewModelFactory(Injection.provideRepository(this))
+        val registerViewModel = ViewModelProvider(this, viewModelFactory)[RegisterViewModel::class.java]
+
+        with(binding) {
+            viewModel(registerViewModel)
+            topAppBarRegister.setNavigationOnClickListener { finish() }
+            registerProgressbar.visibility = View.GONE
+            cbShowPassRegister.setOnCheckedChangeListener { _, isChecked ->
+                edRegisterPassword.inputType =
+                    if (isChecked) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    else InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            }
+            actionRegister.setOnClickListener {
+                hideKeyboard(currentFocus ?: View(this@RegisterActivity))
+                currentFocus?.clearFocus()
+
+                val name = edRegisterName.text.toString().trim()
+                val email = edRegisterEmail.text.toString().trim()
+                val password = edRegisterPassword.text.toString()
+                if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+                    if (edRegisterName.error == null && edRegisterEmail.error == null && edRegisterPassword.error == null) {
+                        registerViewModel.register(name, email, password)
+                    } else showSnackbar(getString(R.string.msg_error_form))
+                } else showSnackbar(getString(R.string.msg_empty_form))
             }
         }
+    }
+
+    private fun ActivityRegisterBinding.viewModel(registerViewModel: RegisterViewModel) {
+        registerViewModel.clearMsg()
+        registerViewModel.isLoading.observe(this@RegisterActivity) {
+            registerProgressbar.visibility = if (it) View.VISIBLE else View.GONE
+        }
+        registerViewModel.message.observe(this@RegisterActivity) { msg ->
+            if (msg != null) Toast.makeText(this@RegisterActivity, msg, Toast.LENGTH_SHORT).show()
+        }
+        registerViewModel.registerResult.observe(this@RegisterActivity) { result ->
+            if (result.error == false) {
+                startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                finish()
+            }
+        }
+    }
+
+    private fun ActivityRegisterBinding.showSnackbar(text: String) {
+        val snackbar = Snackbar.make(root, text, Snackbar.LENGTH_SHORT)
+        snackbar.setAction(getString(R.string.oke)) { snackbar.dismiss() }.show()
+    }
+
+    private fun hideKeyboard(view: View) {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     override fun onDestroy() {

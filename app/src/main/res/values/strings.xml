@@ -20,4 +20,7 @@
     <string name="create_account">Create account</string>
     <string name="login_now">Login now</string>
     <string name="add_stories">Add Stories</string>
+    <string name="msg_error_form">Make sure there are no error messages.</string>
+    <string name="msg_empty_form">Please fill in all forms.</string>
+    <string name="oke">Oke</string>
 </resources>

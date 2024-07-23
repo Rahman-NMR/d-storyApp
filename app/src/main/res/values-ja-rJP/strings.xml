@@ -20,4 +20,7 @@
     <string name="create_account">アカウントを作成</string>
     <string name="login_now">ここでログイン</string>
     <string name="add_stories">ストーリーを追加</string>
+    <string name="msg_error_form">エラーメッセージがないことを確認してください。</string>
+    <string name="msg_empty_form">すべてのフォームにご記入ください。</string>
+    <string name="oke">はい</string>
 </resources>

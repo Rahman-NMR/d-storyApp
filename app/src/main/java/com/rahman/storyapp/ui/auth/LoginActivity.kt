@@ -1,15 +1,16 @@
 package com.rahman.storyapp.ui.auth
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.text.InputType
 import android.view.View
-import androidx.activity.enableEdgeToEdge
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
+import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityLoginBinding
-import com.rahman.storyapp.ui.stories.MainActivity
+import com.rahman.storyapp.di.Injection
 
 class LoginActivity : AppCompatActivity() {
     private var _binding: ActivityLoginBinding? = null
@@ -17,31 +18,59 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.topAppBarLogin.setNavigationOnClickListener { finish() }
-        binding.loginProgressbar.visibility = View.GONE
-        binding.actionLogin.setOnClickListener {
-            val email = binding.edLoginEmail.text.toString().trim()
-            val password = binding.edLoginPassword.text.toString()
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                if (binding.edLoginEmail.error == null && binding.edLoginPassword.error == null) {
-                    binding.loginProgressbar.visibility = View.VISIBLE
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
-                    }, 1500)
-                } else {
-                    val snackbar = Snackbar.make(binding.root, "Pastikan tidak ada pesan error", Snackbar.LENGTH_SHORT)
-                    snackbar.setAction("Oke") { snackbar.dismiss() }.show()
-                }
-            } else {
-                val snackbar = Snackbar.make(binding.root, "Harap mengisi semua form", Snackbar.LENGTH_SHORT)
-                snackbar.setAction("Oke") { snackbar.dismiss() }.show()
+        val viewModelFactory = ViewModelFactory(Injection.provideRepository(this))
+        val loginViewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
+
+        with(binding) {
+            viewModel(loginViewModel)
+
+            topAppBarLogin.setNavigationOnClickListener { finish() }
+            cbShowPassLogin.setOnCheckedChangeListener { _, isChecked ->
+                edLoginPassword.inputType =
+                    if (isChecked) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    else InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            }
+            actionLogin.setOnClickListener {
+                hideKeyboard(currentFocus ?: View(this@LoginActivity))
+                currentFocus?.clearFocus()
+
+                val email = edLoginEmail.text.toString().trim()
+                val password = edLoginPassword.text.toString()
+                if (email.isNotEmpty() && password.isNotEmpty()) {
+                    if (edLoginEmail.error == null && edLoginPassword.error == null) {
+                        loginViewModel.login(email, password)
+                    } else showSnackbar(getString(R.string.msg_error_form))
+                } else showSnackbar(getString(R.string.msg_empty_form))
             }
         }
+    }
+
+    private fun ActivityLoginBinding.viewModel(loginViewModel: LoginViewModel) {
+        loginViewModel.clearMsg()
+        loginViewModel.isLoading.observe(this@LoginActivity) {
+            loginProgressbar.visibility = if (it) View.VISIBLE else View.GONE
+        }
+        loginViewModel.message.observe(this@LoginActivity) { msg ->
+            if (msg != null) Toast.makeText(this@LoginActivity, msg, Toast.LENGTH_SHORT).show()
+        }
+        loginViewModel.loginResult.observe(this@LoginActivity) { result ->
+            if (result.error == false) {
+                if (result.loginResult != null) finish()
+            }
+        }
+    }
+
+    private fun ActivityLoginBinding.showSnackbar(text: String) {
+        val snackbar = Snackbar.make(root, text, Snackbar.LENGTH_SHORT)
+        snackbar.setAction(getString(R.string.oke)) { snackbar.dismiss() }.show()
+    }
+
+    private fun hideKeyboard(view: View) {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     override fun onDestroy() {
