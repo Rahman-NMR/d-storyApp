@@ -67,9 +67,10 @@
                 android:id="@+id/ed_login_email"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:drawableTint="@color/icon_colorstate"
                 android:hint="@string/insert_email"
                 android:inputType="text|textEmailAddress"
-                android:selectAllOnFocus="true"
+                app:customInputType="email"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_login_email"
@@ -79,21 +80,31 @@
                 android:id="@+id/ed_login_password"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:drawableTint="@color/icon_colorstate"
                 android:hint="@string/insert_password"
                 android:inputType="text|textPassword"
+                app:customInputType="password"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_login_password"
                 app:layout_constraintWidth_max="488dp" />
 
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/cb_show_pass_login"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/show_password"
+                app:layout_constraintStart_toStartOf="@+id/ed_login_password"
+                app:layout_constraintTop_toBottomOf="@+id/ed_login_password" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/action_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
                 android:text="@string/login"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/ed_login_password"
-                app:layout_constraintTop_toBottomOf="@+id/ed_login_password" />
+                app:layout_constraintTop_toBottomOf="@+id/cb_show_pass_login" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
