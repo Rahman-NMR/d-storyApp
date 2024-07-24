@@ -2,25 +2,26 @@
 <resources>
     <string name="app_name">アプリ ストーリー</string>
     <string name="title_welcome">ストーリー アプリへようこそ</string>
-    <string name="desc_welcome">このアプリケーションからストーリーを共有したり、他のユーザーのストーリーを表示したりできます。</string>
-    <string name="desc_login">ぜひあなたのストーリーを見て共有してください。</string>
-    <string name="desc_register">参加してあなたのストーリーを共有してください。</string>
+    <string name="desc_welcome">あなたの特別な体験を共有し、このプラットフォームで他のユーザーの感動的なストーリーを見つけてください。</string>
+    <string name="desc_login">ログインして、魅力的なストーリーを発見し、素敵な体験を共有しましょう。</string>
+    <string name="desc_register">参加して体験を共有し、感動的なストーリーを見つけましょう。</string>
     <string name="login">ログイン</string>
     <string name="register">レジスター</string>
+    <string name="logout">ログアウト</string>
     <string name="name">ネーム</string>
     <string name="email">メールアドレス</string>
     <string name="password">パスワード</string>
     <string name="insert_name">ネームを入力してください</string>
     <string name="insert_email">メールアドレスを入力してください</string>
     <string name="insert_password">パスワードを入力してください</string>
-    <string name="error_name">ネームは 3 文字以上である必要があります。</string>
-    <string name="error_email">メールアドレスの形式が一致しません。</string>
+    <string name="error_name">ネームは 3 文字未満です。</string>
+    <string name="error_email">メールアドレスの形式が無効です。</string>
     <string name="error_password">パスワードは 8 文字未満です。</string>
     <string name="show_password">パスワードを表示</string>
     <string name="create_account">アカウントを作成</string>
     <string name="login_now">ここでログイン</string>
     <string name="add_stories">ストーリーを追加</string>
     <string name="msg_error_form">エラーメッセージがないことを確認してください。</string>
-    <string name="msg_empty_form">すべてのフォームにご記入ください。</string>
+    <string name="msg_empty_form">すべてのフォームに記入してください。</string>
     <string name="oke">はい</string>
 </resources>

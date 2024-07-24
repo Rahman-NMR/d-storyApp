@@ -2,25 +2,26 @@
 <resources>
     <string name="app_name">Story App</string>
     <string name="title_welcome">Welcome to Story App</string>
-    <string name="desc_welcome">You can share stories and view other users\' stories from this application.</string>
-    <string name="desc_login">Come see and share your story.</string>
-    <string name="desc_register">Join us to share your story.</string>
+    <string name="desc_welcome">Here, you can share your unique experiences and explore inspiring stories shared by other users on this platform.</string>
+    <string name="desc_login">Login now to explore fascinating stories and share your incredible experiences.</string>
+    <string name="desc_register">Join now to share experiences and discover inspiring stories.</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="logout">Logout</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="insert_name">Enter your name</string>
     <string name="insert_email">Enter your email</string>
     <string name="insert_password">Enter your password</string>
-    <string name="error_name">Name must be more than 3 characters.</string>
-    <string name="error_email">Email does not match format.</string>
+    <string name="error_name">Name is less than 3 characters.</string>
+    <string name="error_email">Invalid email format.</string>
     <string name="error_password">Password is less than 8 characters.</string>
     <string name="show_password">Show password</string>
     <string name="create_account">Create account</string>
     <string name="login_now">Login now</string>
     <string name="add_stories">Add Stories</string>
     <string name="msg_error_form">Make sure there are no error messages.</string>
-    <string name="msg_empty_form">Please fill in all forms.</string>
+    <string name="msg_empty_form">Please complete all forms.</string>
     <string name="oke">Oke</string>
 </resources>

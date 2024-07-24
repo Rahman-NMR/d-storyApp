@@ -2,25 +2,26 @@
 <resources>
     <string name="app_name">Story App</string>
     <string name="title_welcome">Selamat Datang di Story App</string>
-    <string name="desc_welcome">Anda dapat membagikan story dan melihat story pengguna lain dari aplikasi ini.</string>
-    <string name="desc_login">Ayo lihat dan bagikan story Anda.</string>
-    <string name="desc_register">Bergabunglah bersama kami untuk membagikan story.</string>
+    <string name="desc_welcome">Bagikan pengalaman unik Anda dan temukan kisah-kisah inspiratif dari pengguna lainnya di platform ini.</string>
+    <string name="desc_login">Masuk sekarang untuk menemukan kisah-kisah menarik dan berbagi pengalaman Anda yang luar biasa.</string>
+    <string name="desc_register">Bergabunglah sekarang untuk dapat berbagi pengalaman dan menemukan kisah inspiratif.</string>
     <string name="login">Masuk</string>
     <string name="register">Daftar</string>
+    <string name="logout">Keluar</string>
     <string name="name">Nama</string>
     <string name="email">Email</string>
     <string name="password">Kata Sandi</string>
     <string name="insert_name">Masukkan nama Anda</string>
     <string name="insert_email">Masukkan email Anda</string>
     <string name="insert_password">Masukkan kata sandi Anda</string>
-    <string name="error_name">Nama harus lebih dari 3 karakter.</string>
-    <string name="error_email">Email tidak sesuai format.</string>
+    <string name="error_name">Nama kurang dari 3 karakter.</string>
+    <string name="error_email">Format email tidak valid.</string>
     <string name="error_password">Kata sandi kurang dari 8 karakter.</string>
     <string name="show_password">Tampilkan kata sandi</string>
     <string name="create_account">Buat akun</string>
     <string name="login_now">Masuk sekarang</string>
     <string name="add_stories">Tambah Cerita</string>
     <string name="msg_error_form">Pastikan tidak ada pesan error.</string>
-    <string name="msg_empty_form">Harap mengisi semua form.</string>
+    <string name="msg_empty_form">Harap melengkapi semua form.</string>
     <string name="oke">Oke</string>
 </resources>
