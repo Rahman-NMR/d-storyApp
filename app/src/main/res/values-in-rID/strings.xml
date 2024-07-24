@@ -23,6 +23,10 @@
     <string name="add_stories">Tambah Cerita</string>
     <string name="msg_error_form">Pastikan tidak ada pesan error.</string>
     <string name="msg_empty_form">Harap melengkapi semua form.</string>
+    <string name="dialog_title">Keluar dari Akun?</string>
+    <string name="dialog_message">Anda akan keluar dari akun Anda sekarang.</string>
+    <string name="dialog_positive">Keluar</string>
+    <string name="dialog_negative">Batalkan</string>
     <string name="oke">Oke</string>
     <string name="desc_fab_add_story">Ke halaman tambah Story</string>
 </resources>
