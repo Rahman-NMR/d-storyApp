@@ -13,17 +13,17 @@ import com.rahman.storyapp.databinding.ActivityWelcomeBinding
 import com.rahman.storyapp.di.Injection
 import com.rahman.storyapp.view.ui.auth.LoginActivity
 import com.rahman.storyapp.view.ui.auth.RegisterActivity
-import com.rahman.storyapp.view.viewmodel.ViewModelFactory
+import com.rahman.storyapp.view.viewmodel.ViewModelFactoryUser
 import com.rahman.storyapp.view.ui.stories.MainActivity
-import com.rahman.storyapp.view.viewmodel.WelcomeViewModel
+import com.rahman.storyapp.view.viewmodel.UserViewModel
 import kotlinx.coroutines.runBlocking
 
 class WelcomeActivity : AppCompatActivity() {
     private var _binding: ActivityWelcomeBinding? = null
     private val binding get() = _binding!!
     private var splashOpen = false
-    private val welcomeViewModel: WelcomeViewModel by viewModels {
-        ViewModelFactory(Injection.provideRepository(this))
+    private val userViewModel: UserViewModel by viewModels {
+        ViewModelFactoryUser(Injection.provideRepository(this))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +66,7 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     private fun loginSession() {
-        val isLogin = runBlocking { welcomeViewModel.isAvailable() }
+        val isLogin = runBlocking { userViewModel.isAvailable() }
 
         if (isLogin) {
             startActivity(Intent(this@WelcomeActivity, MainActivity::class.java))
@@ -74,8 +74,8 @@ class WelcomeActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         loginSession()
     }
 

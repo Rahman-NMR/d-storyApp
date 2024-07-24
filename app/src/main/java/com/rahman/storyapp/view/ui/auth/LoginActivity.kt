@@ -12,7 +12,7 @@ import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityLoginBinding
 import com.rahman.storyapp.di.Injection
 import com.rahman.storyapp.view.viewmodel.LoginViewModel
-import com.rahman.storyapp.view.viewmodel.ViewModelFactory
+import com.rahman.storyapp.view.viewmodel.ViewModelFactoryUser
 
 class LoginActivity : AppCompatActivity() {
     private var _binding: ActivityLoginBinding? = null
@@ -23,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
         _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModelFactory = ViewModelFactory(Injection.provideRepository(this))
+        val viewModelFactory = ViewModelFactoryUser(Injection.provideRepository(this))
         val loginViewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
 
         with(binding) {
