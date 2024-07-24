@@ -42,17 +42,24 @@
             android:paddingTop="32dp"
             android:paddingBottom="@dimen/bottom_padding">
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.3" />
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/img_register"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintDimensionRatio="16:9"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_max="488dp"
-                app:srcCompat="@drawable/placeholder_img" />
+                app:srcCompat="@drawable/src_register_img" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_register_body"
@@ -61,7 +68,7 @@
                 android:layout_marginTop="8dp"
                 android:padding="8dp"
                 android:text="@string/desc_register"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_register"

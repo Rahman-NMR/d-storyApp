@@ -24,7 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/undraw_nature" />
+            app:srcCompat="@drawable/src_welcome_img" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_title"
@@ -38,7 +38,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_welcome"
+            app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontal"
             tools:alpha="100" />
 
         <com.google.android.material.textview.MaterialTextView
