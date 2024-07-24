@@ -24,4 +24,6 @@
     <string name="msg_error_form">Make sure there are no error messages.</string>
     <string name="msg_empty_form">Please complete all forms.</string>
     <string name="oke">Oke</string>
+    <string name="desc_fab_add_story">Go to the add Story page.</string>
+    <string name="text_empty" translatable="false">-</string>
 </resources>
