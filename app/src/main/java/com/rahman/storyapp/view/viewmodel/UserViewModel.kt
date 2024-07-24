@@ -8,4 +8,8 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
         val uid = userRepository.getUserId()
         return uid?.isNotEmpty() ?: false
     }
+
+    suspend fun logout() {
+        userRepository.logout()
+    }
 }

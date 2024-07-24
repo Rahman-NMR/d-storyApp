@@ -33,8 +33,9 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
                 _message.value = msg
 
                 if (response.error == false) {
-                    response.loginResult?.userId?.let { userId ->
-                        userRepository.saveUserId(userId)
+                    response.loginResult?.let { result ->
+                        result.userId?.let { userRepository.saveUserId(it) }
+                        result.token?.let { userRepository.saveTokenUser(it) }
                     }
                 }
             } catch (e: HttpException) {

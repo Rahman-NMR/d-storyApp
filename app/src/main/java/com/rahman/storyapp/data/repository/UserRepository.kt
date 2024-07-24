@@ -19,6 +19,10 @@ class UserRepository(private val apiService: ApiService, private val preference:
         preference.saveUser(uid)
     }
 
+    suspend fun saveTokenUser(token: String) {
+        preference.saveToken(token)
+    }
+
     suspend fun getUserId(): String? {
         return preference.getUser.first()
     }

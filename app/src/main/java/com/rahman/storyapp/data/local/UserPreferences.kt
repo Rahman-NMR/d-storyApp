@@ -16,26 +16,34 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 
 class UserPreferences private constructor(private val dataStore: DataStore<Preferences>) {
     private val session = stringPreferencesKey("session_login")
+    private val token = stringPreferencesKey("session_token")
 
     val getUser: Flow<String?> = dataStore.data
         .catch { exception ->
             if (exception is IOException) {
                 emit(emptyPreferences())
             } else throw exception
-        }
-        .map { preferences ->
-            preferences[session]
-        }
+        }.map { pref -> pref[session] }
+
+    val getToken: Flow<String?> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else throw exception
+        }.map { pref -> pref[token] }
 
     suspend fun saveUser(uid: String) {
-        dataStore.edit { preferences ->
-            preferences[session] = uid
-        }
+        dataStore.edit { it[session] = uid }
+    }
+
+    suspend fun saveToken(dataToken: String) {
+        dataStore.edit { it[token] = dataToken }
     }
 
     suspend fun logout() {
         dataStore.edit { preference ->
             preference.remove(session)
+            preference.remove(token)
         }
     }
 
