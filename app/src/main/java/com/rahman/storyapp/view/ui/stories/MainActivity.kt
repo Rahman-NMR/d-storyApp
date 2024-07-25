@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,8 +14,8 @@ import com.rahman.storyapp.databinding.ActivityMainBinding
 import com.rahman.storyapp.di.Injection
 import com.rahman.storyapp.view.ui.WelcomeActivity
 import com.rahman.storyapp.view.viewmodel.StoriesViewModel
-import com.rahman.storyapp.view.viewmodel.ViewModelFactoryStory
 import com.rahman.storyapp.view.viewmodel.UserViewModel
+import com.rahman.storyapp.view.viewmodel.ViewModelFactoryStory
 import com.rahman.storyapp.view.viewmodel.ViewModelFactoryUser
 import kotlinx.coroutines.runBlocking
 
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapterStory: AdapterStory
+    private val storiesViewModel: StoriesViewModel by viewModels {
+        ViewModelFactoryStory(Injection.provideStoryRepository(this))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +33,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val userFactory = ViewModelFactoryUser(Injection.provideRepository(this))
-        val storiesFactory = ViewModelFactoryStory(Injection.provideStoryRepository(this))
         val userViewModel = ViewModelProvider(this, userFactory)[UserViewModel::class.java]
-        val storiesViewModel = ViewModelProvider(this, storiesFactory)[StoriesViewModel::class.java]
 
         binding.topAppBarMain.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -44,15 +46,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        adapterStory = AdapterStory()
-        binding.rvListStory.layoutManager = LinearLayoutManager(this)
+        adapterStory = AdapterStory {
+            Toast.makeText(this, "${it.name}, ${it.createdAt}", Toast.LENGTH_SHORT).show()
+        }
+        binding.rvListStory.addItemDecoration(PaddingDecoration(this, 32))
+        binding.rvListStory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvListStory.adapter = adapterStory
 
-        startup(storiesViewModel)
-        viewModelObserver(storiesViewModel)
+        startup()
+        viewModelObserver()
         binding.fabAddStory.setOnClickListener { startActivity(Intent(this, AddStoriesActivity::class.java)) }
         binding.swipeRefresh.setOnRefreshListener {
-            startup(storiesViewModel)
+            startup()
             binding.swipeRefresh.isRefreshing = false
         }
     }
@@ -74,29 +79,31 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun startup(storiesViewModel: StoriesViewModel) {
+    private fun startup() {
         storiesViewModel.clearMsg()
         storiesViewModel.showStories()
     }
 
-    private fun viewModelObserver(storiesViewModel: StoriesViewModel) {
-        storiesViewModel.isLoading.observe(this) {
-            if (adapterStory.itemCount < 1) {
-                binding.circularProgressbar.visibility = if (it) View.VISIBLE else View.GONE
-                binding.linearProgressbar.visibility = View.GONE
-            } else {
-                binding.circularProgressbar.visibility = View.GONE
-                binding.linearProgressbar.visibility = if (it) View.VISIBLE else View.GONE
-            }
+    private fun viewModelObserver() {
+        storiesViewModel.isLoading.observe(this) { isLoading ->
+            binding.emptyMsg.visibility = if (isLoading || adapterStory.itemCount > 0) View.GONE else View.VISIBLE
+            binding.circularProgressbar.visibility = if (isLoading && adapterStory.itemCount < 1) View.VISIBLE else View.GONE
+            binding.linearProgressbar.visibility = if (isLoading && adapterStory.itemCount > 0) View.VISIBLE else View.GONE
         }
         storiesViewModel.message.observe(this) { msg ->
-            if (msg != null) Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+            if (!msg.isNullOrEmpty()) Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         }
         storiesViewModel.stories.observe(this) { story ->
             if (story != null) {
-                adapterStory.storyList(story)
+                story.listStory.sortedByDescending { it.createdAt }
+                adapterStory.storyList(story.listStory)
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        startup()
     }
 
     override fun onDestroy() {

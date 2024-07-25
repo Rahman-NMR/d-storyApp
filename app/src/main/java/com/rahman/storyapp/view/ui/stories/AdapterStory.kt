@@ -11,7 +11,7 @@ import com.google.android.material.textview.MaterialTextView
 import com.rahman.storyapp.R
 import com.rahman.storyapp.data.remote.response.ListStoryItem
 
-class AdapterStory : RecyclerView.Adapter<AdapterStory.ViewHolder>() {
+class AdapterStory(private val function: (ListStoryItem) -> Unit) : RecyclerView.Adapter<AdapterStory.ViewHolder>() {
     private var dataStories = ArrayList<ListStoryItem>()
 
     fun storyList(list: List<ListStoryItem>) {
@@ -23,16 +23,18 @@ class AdapterStory : RecyclerView.Adapter<AdapterStory.ViewHolder>() {
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(listStoryItem: ListStoryItem) {
-            val name = itemView.findViewById<MaterialTextView>(R.id.tv_item_name)
+        fun bind(listStoryItem: ListStoryItem, function: (ListStoryItem) -> Unit) {
             val photo = itemView.findViewById<ShapeableImageView>(R.id.iv_item_photo)
+            val name = itemView.findViewById<MaterialTextView>(R.id.tv_item_name)
+            val desc = itemView.findViewById<MaterialTextView>(R.id.tv_item_desc)
 
+            desc.visibility = if (listStoryItem.description.isNullOrEmpty()) View.GONE else View.VISIBLE
             Glide.with(itemView.context).load(listStoryItem.photoUrl)
                 .placeholder(R.drawable.img_placeholder).into(photo)
             name.text = listStoryItem.name
-            Glide.with(itemView.context).load(listStoryItem.photoUrl)
-                .placeholder(R.drawable.placeholder_img).into(photo)
-            itemView.setOnClickListener {  }
+            desc.text = listStoryItem.description
+
+            itemView.setOnClickListener { function(listStoryItem) }
         }
     }
 
@@ -45,6 +47,6 @@ class AdapterStory : RecyclerView.Adapter<AdapterStory.ViewHolder>() {
     override fun getItemCount(): Int = dataStories.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(dataStories[position])
+        holder.bind(dataStories[position], function)
     }
 }

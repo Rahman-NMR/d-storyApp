@@ -15,7 +15,7 @@ class StoryDiffCallback(private val oldList: ArrayList<ListStoryItem>, private v
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldStory = oldList[oldItemPosition]
         val newStory = newList[newItemPosition]
-        return oldStory.photoUrl == newStory.photoUrl && oldStory.name == newStory.name
+        return oldStory.createdAt == newStory.createdAt && oldStory.photoUrl == newStory.photoUrl && oldStory.name == newStory.name
     }
 
 }
