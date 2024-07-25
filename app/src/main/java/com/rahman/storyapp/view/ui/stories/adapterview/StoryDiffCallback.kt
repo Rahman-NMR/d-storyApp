@@ -1,4 +1,4 @@
-package com.rahman.storyapp.view.ui.stories
+package com.rahman.storyapp.view.ui.stories.adapterview
 
 import androidx.recyclerview.widget.DiffUtil
 import com.rahman.storyapp.data.remote.response.ListStoryItem

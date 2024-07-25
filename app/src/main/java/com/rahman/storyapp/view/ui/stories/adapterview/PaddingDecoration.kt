@@ -1,4 +1,4 @@
-package com.rahman.storyapp.view.ui.stories
+package com.rahman.storyapp.view.ui.stories.adapterview
 
 import android.content.Context
 import android.graphics.Rect

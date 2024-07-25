@@ -13,6 +13,8 @@ import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityMainBinding
 import com.rahman.storyapp.di.Injection
 import com.rahman.storyapp.view.ui.WelcomeActivity
+import com.rahman.storyapp.view.ui.stories.adapterview.AdapterStory
+import com.rahman.storyapp.view.ui.stories.adapterview.PaddingDecoration
 import com.rahman.storyapp.view.viewmodel.StoriesViewModel
 import com.rahman.storyapp.view.viewmodel.UserViewModel
 import com.rahman.storyapp.view.viewmodel.ViewModelFactoryStory

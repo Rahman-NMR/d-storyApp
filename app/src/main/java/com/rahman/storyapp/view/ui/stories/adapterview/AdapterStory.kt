@@ -1,4 +1,4 @@
-package com.rahman.storyapp.view.ui.stories
+package com.rahman.storyapp.view.ui.stories.adapterview
 
 import android.view.LayoutInflater
 import android.view.View
