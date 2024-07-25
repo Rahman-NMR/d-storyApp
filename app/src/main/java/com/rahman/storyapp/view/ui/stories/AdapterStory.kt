@@ -27,6 +27,8 @@ class AdapterStory : RecyclerView.Adapter<AdapterStory.ViewHolder>() {
             val name = itemView.findViewById<MaterialTextView>(R.id.tv_item_name)
             val photo = itemView.findViewById<ShapeableImageView>(R.id.iv_item_photo)
 
+            Glide.with(itemView.context).load(listStoryItem.photoUrl)
+                .placeholder(R.drawable.img_placeholder).into(photo)
             name.text = listStoryItem.name
             Glide.with(itemView.context).load(listStoryItem.photoUrl)
                 .placeholder(R.drawable.placeholder_img).into(photo)
