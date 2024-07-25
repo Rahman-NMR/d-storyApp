@@ -29,4 +29,5 @@
     <string name="dialog_negative">キャンセル</string>
     <string name="oke">はい</string>
     <string name="desc_fab_add_story">ストーリーの追加ページに移動します。</string>
+    <string name="cerita_tidak_tersedia">ストーリーは利用できません</string>
 </resources>

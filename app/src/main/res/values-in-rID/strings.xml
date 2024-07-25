@@ -29,4 +29,5 @@
     <string name="dialog_negative">Batalkan</string>
     <string name="oke">Oke</string>
     <string name="desc_fab_add_story">Ke halaman tambah Story</string>
+    <string name="cerita_tidak_tersedia">Story tidak tersedia</string>
 </resources>

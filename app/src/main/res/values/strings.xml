@@ -30,4 +30,5 @@
     <string name="oke">Oke</string>
     <string name="desc_fab_add_story">Go to the add Story page.</string>
     <string name="text_empty" translatable="false">-</string>
+    <string name="cerita_tidak_tersedia">Story not available</string>
 </resources>

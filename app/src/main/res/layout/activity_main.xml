@@ -27,7 +27,8 @@
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        tools:visibility="gone">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_list_story"
@@ -35,10 +36,38 @@
             android:layout_height="wrap_content"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:paddingTop="16dp"
+            android:paddingTop="8dp"
             android:paddingBottom="@dimen/bottom_padding"
             tools:listitem="@layout/item_story" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/circular_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/empty_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.85"
+            android:gravity="center"
+            android:lineSpacingExtra="3sp"
+            android:padding="16dp"
+            android:text="@string/cerita_tidak_tersedia"
+            android:textSize="20sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_story"
@@ -58,11 +87,4 @@
         android:indeterminate="true"
         app:layout_anchor="@id/app_bar_main"
         app:layout_anchorGravity="bottom" />
-
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/circular_progressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminate="true" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

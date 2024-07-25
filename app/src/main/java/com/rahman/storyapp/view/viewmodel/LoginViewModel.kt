@@ -44,6 +44,9 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
                 val errorMessage = errorBody.message
 
                 _message.value = errorMessage
+            } catch (e: Exception) {
+                val msg = e.message?.substringAfter(": ") ?: "Unknown Error"
+                _message.value = msg
             } finally {
                 _isLoading.value = false
             }
