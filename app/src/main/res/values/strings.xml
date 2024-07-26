@@ -21,14 +21,23 @@
     <string name="create_account">Create account</string>
     <string name="login_now">Login now</string>
     <string name="add_story">Add Story</string>
-    <string name="msg_error_form">Make sure there are no error messages.</string>
-    <string name="msg_empty_form">Please complete all forms.</string>
+    <string name="msg_error_form">Make sure there are no error messages</string>
+    <string name="msg_empty_form">Please complete all forms</string>
     <string name="dialog_title">Logout of Account?</string>
     <string name="dialog_message">You will be logged out of your account now.</string>
     <string name="dialog_positive">Logout</string>
     <string name="dialog_negative">Cancel</string>
-    <string name="oke">Oke</string>
-    <string name="desc_fab_add_story">Go to the add Story page.</string>
+    <string name="oke">Close</string>
+    <string name="desc_fab_add_story">Go to the add Story page</string>
     <string name="text_empty" translatable="false">-</string>
     <string name="story_unavailable">Story not available</string>
+    <string name="description">Description</string>
+    <string name="hint_description">Add photo description</string>
+    <string name="upload_story">Upload story</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="add_image">Add image</string>
+    <string name="delete_image">Delete image</string>
+    <string name="msg_empty_image" >No images added</string>
+    <string name="msg_empty_description" >Description cannot be empty</string>
 </resources>
