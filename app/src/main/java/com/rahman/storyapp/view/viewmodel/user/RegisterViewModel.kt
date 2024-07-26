@@ -1,4 +1,4 @@
-package com.rahman.storyapp.view.viewmodel
+package com.rahman.storyapp.view.viewmodel.user
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,14 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.rahman.storyapp.data.remote.response.ErrorResponse
-import com.rahman.storyapp.data.remote.response.StoriesResponse
-import com.rahman.storyapp.data.repository.StoryRepository
+import com.rahman.storyapp.data.repository.UserRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class StoriesViewModel(private val storyRepository: StoryRepository) : ViewModel() {
-    private val _stories = MutableLiveData<StoriesResponse>()
-    val stories: LiveData<StoriesResponse> get() = _stories
+class RegisterViewModel(private val userRepository: UserRepository) : ViewModel() {
+    private val _registerResult = MutableLiveData<ErrorResponse>()
+    val registerResult: LiveData<ErrorResponse> get() = _registerResult
 
     private val _message = MutableLiveData<String?>()
     val message: LiveData<String?> get() = _message
@@ -21,14 +20,16 @@ class StoriesViewModel(private val storyRepository: StoryRepository) : ViewModel
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    fun showStories() {
+    fun register(name: String, email: String, password: String) {
         viewModelScope.launch {
             _isLoading.value = true
 
             try {
-                val response = storyRepository.getStories()
-                _stories.value = response
+                val response = userRepository.register(name, email, password)
+                val msg = response.message
 
+                _registerResult.value = response
+                _message.value = msg
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)

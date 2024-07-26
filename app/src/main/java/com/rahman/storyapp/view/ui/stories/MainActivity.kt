@@ -14,10 +14,10 @@ import com.rahman.storyapp.utils.DisplayMessage
 import com.rahman.storyapp.view.ui.WelcomeActivity
 import com.rahman.storyapp.view.ui.stories.adapterview.AdapterStory
 import com.rahman.storyapp.view.ui.stories.adapterview.PaddingDecoration
-import com.rahman.storyapp.view.viewmodel.StoriesViewModel
-import com.rahman.storyapp.view.viewmodel.UserViewModel
-import com.rahman.storyapp.view.viewmodel.ViewModelFactoryStory
-import com.rahman.storyapp.view.viewmodel.ViewModelFactoryUser
+import com.rahman.storyapp.view.viewmodel.stories.StoriesViewModel
+import com.rahman.storyapp.view.viewmodel.user.UserViewModel
+import com.rahman.storyapp.view.viewmodel.stories.ViewModelFactoryStory
+import com.rahman.storyapp.view.viewmodel.user.ViewModelFactoryUser
 import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {

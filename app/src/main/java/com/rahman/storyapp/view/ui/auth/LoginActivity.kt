@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityLoginBinding
 import com.rahman.storyapp.utils.DisplayMessage
-import com.rahman.storyapp.view.viewmodel.LoginViewModel
-import com.rahman.storyapp.view.viewmodel.ViewModelFactoryUser
+import com.rahman.storyapp.view.viewmodel.user.LoginViewModel
+import com.rahman.storyapp.view.viewmodel.user.ViewModelFactoryUser
 
 class LoginActivity : AppCompatActivity() {
     private var _binding: ActivityLoginBinding? = null

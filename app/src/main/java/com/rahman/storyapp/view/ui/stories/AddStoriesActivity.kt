@@ -15,8 +15,8 @@ import com.rahman.storyapp.utils.DisplayMessage
 import com.rahman.storyapp.utils.ImageOperation.getImageUri
 import com.rahman.storyapp.utils.ImageOperation.reduceFileImage
 import com.rahman.storyapp.utils.ImageOperation.uriToFile
-import com.rahman.storyapp.view.viewmodel.AddStoryViewModel
-import com.rahman.storyapp.view.viewmodel.ViewModelFactoryStory
+import com.rahman.storyapp.view.viewmodel.stories.AddStoryViewModel
+import com.rahman.storyapp.view.viewmodel.stories.ViewModelFactoryStory
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody

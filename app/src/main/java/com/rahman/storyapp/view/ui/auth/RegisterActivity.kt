@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityRegisterBinding
 import com.rahman.storyapp.utils.DisplayMessage
-import com.rahman.storyapp.view.viewmodel.RegisterViewModel
-import com.rahman.storyapp.view.viewmodel.ViewModelFactoryUser
+import com.rahman.storyapp.view.viewmodel.user.RegisterViewModel
+import com.rahman.storyapp.view.viewmodel.user.ViewModelFactoryUser
 
 class RegisterActivity : AppCompatActivity() {
     private var _binding: ActivityRegisterBinding? = null

@@ -1,4 +1,4 @@
-package com.rahman.storyapp.view.viewmodel
+package com.rahman.storyapp.view.viewmodel.user
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

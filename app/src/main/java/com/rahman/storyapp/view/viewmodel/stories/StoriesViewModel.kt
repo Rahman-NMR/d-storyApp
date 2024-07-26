@@ -1,24 +1,19 @@
-package com.rahman.storyapp.view.viewmodel
+package com.rahman.storyapp.view.viewmodel.stories
 
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.rahman.storyapp.data.remote.response.ErrorResponse
+import com.rahman.storyapp.data.remote.response.StoriesResponse
 import com.rahman.storyapp.data.repository.StoryRepository
 import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.HttpException
 
-class AddStoryViewModel(private val storyRepository: StoryRepository) : ViewModel() {
-    private val _resultUpload = MutableLiveData<ErrorResponse>()
-    val resultUpload: LiveData<ErrorResponse> get() = _resultUpload
-
-    private val _imgUri = MutableLiveData<Uri?>()
-    val currentImageUri: LiveData<Uri?> get() = _imgUri
+class StoriesViewModel(private val storyRepository: StoryRepository) : ViewModel() {
+    private val _stories = MutableLiveData<StoriesResponse>()
+    val stories: LiveData<StoriesResponse> get() = _stories
 
     private val _message = MutableLiveData<String?>()
     val message: LiveData<String?> get() = _message
@@ -26,14 +21,13 @@ class AddStoryViewModel(private val storyRepository: StoryRepository) : ViewMode
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    fun uploadStory(photo: MultipartBody.Part, desc: RequestBody) {
+    fun showStories() {
         viewModelScope.launch {
             _isLoading.value = true
 
             try {
-                val response = storyRepository.addNewStory(photo, desc)
-                _resultUpload.value = response
-                _message.value = response.message
+                val response = storyRepository.getStories()
+                _stories.value = response
 
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
@@ -48,10 +42,6 @@ class AddStoryViewModel(private val storyRepository: StoryRepository) : ViewMode
                 _isLoading.value = false
             }
         }
-    }
-
-    fun saveImageUri(uri: Uri?) {
-        _imgUri.value = uri
     }
 
     fun clearMsg() {

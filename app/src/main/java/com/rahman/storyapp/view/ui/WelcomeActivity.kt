@@ -13,8 +13,8 @@ import com.rahman.storyapp.databinding.ActivityWelcomeBinding
 import com.rahman.storyapp.view.ui.auth.LoginActivity
 import com.rahman.storyapp.view.ui.auth.RegisterActivity
 import com.rahman.storyapp.view.ui.stories.MainActivity
-import com.rahman.storyapp.view.viewmodel.UserViewModel
-import com.rahman.storyapp.view.viewmodel.ViewModelFactoryUser
+import com.rahman.storyapp.view.viewmodel.user.UserViewModel
+import com.rahman.storyapp.view.viewmodel.user.ViewModelFactoryUser
 import kotlinx.coroutines.runBlocking
 
 class WelcomeActivity : AppCompatActivity() {
