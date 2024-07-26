@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityMainBinding
-import com.rahman.storyapp.di.Injection
 import com.rahman.storyapp.utils.ShowToast
 import com.rahman.storyapp.view.ui.WelcomeActivity
 import com.rahman.storyapp.view.ui.stories.adapterview.AdapterStory
@@ -26,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private val binding get() = _binding!!
     private lateinit var adapterStory: AdapterStory
     private val storiesViewModel: StoriesViewModel by viewModels {
-        ViewModelFactoryStory(Injection.provideStoryRepository(this))
+        ViewModelFactoryStory.getInstance(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val userFactory = ViewModelFactoryUser(Injection.provideRepository(this))
+        val userFactory = ViewModelFactoryUser.getInstance(this)
         val userViewModel = ViewModelProvider(this, userFactory)[UserViewModel::class.java]
 
         binding.topAppBarMain.setOnMenuItemClickListener {

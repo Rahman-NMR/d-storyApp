@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityLoginBinding
-import com.rahman.storyapp.di.Injection
 import com.rahman.storyapp.utils.ShowToast
 import com.rahman.storyapp.view.viewmodel.LoginViewModel
 import com.rahman.storyapp.view.viewmodel.ViewModelFactoryUser
@@ -23,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
         _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModelFactory = ViewModelFactoryUser(Injection.provideRepository(this))
+        val viewModelFactory = ViewModelFactoryUser.getInstance(this)
         val loginViewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
 
         with(binding) {

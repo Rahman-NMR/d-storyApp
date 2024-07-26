@@ -10,12 +10,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.rahman.storyapp.databinding.ActivityWelcomeBinding
-import com.rahman.storyapp.di.Injection
 import com.rahman.storyapp.view.ui.auth.LoginActivity
 import com.rahman.storyapp.view.ui.auth.RegisterActivity
-import com.rahman.storyapp.view.viewmodel.ViewModelFactoryUser
 import com.rahman.storyapp.view.ui.stories.MainActivity
 import com.rahman.storyapp.view.viewmodel.UserViewModel
+import com.rahman.storyapp.view.viewmodel.ViewModelFactoryUser
 import kotlinx.coroutines.runBlocking
 
 class WelcomeActivity : AppCompatActivity() {
@@ -23,7 +22,7 @@ class WelcomeActivity : AppCompatActivity() {
     private val binding get() = _binding!!
     private var splashOpen = false
     private val userViewModel: UserViewModel by viewModels {
-        ViewModelFactoryUser(Injection.provideRepository(this))
+        ViewModelFactoryUser.getInstance(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

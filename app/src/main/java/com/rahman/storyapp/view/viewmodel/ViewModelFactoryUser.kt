@@ -1,10 +1,12 @@
 package com.rahman.storyapp.view.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.rahman.storyapp.data.repository.UserRepository
+import com.rahman.storyapp.di.Injection
 
-class ViewModelFactoryUser(private val userRepository: UserRepository) : ViewModelProvider.Factory {
+class ViewModelFactoryUser private constructor(private val userRepository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
@@ -17,5 +19,14 @@ class ViewModelFactoryUser(private val userRepository: UserRepository) : ViewMod
             return UserViewModel(userRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
+    }
+
+    companion object {
+        @Volatile
+        private var instance: ViewModelFactoryUser? = null
+        fun getInstance(context: Context): ViewModelFactoryUser =
+            instance ?: synchronized(this) {
+                instance ?: ViewModelFactoryUser(Injection.provideRepository(context))
+            }.also { instance = it }
     }
 }
