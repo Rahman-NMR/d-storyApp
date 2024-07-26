@@ -9,13 +9,12 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityAddStoriesBinding
+import com.rahman.storyapp.utils.DisplayMessage
 import com.rahman.storyapp.utils.ImageOperation.getImageUri
 import com.rahman.storyapp.utils.ImageOperation.reduceFileImage
 import com.rahman.storyapp.utils.ImageOperation.uriToFile
-import com.rahman.storyapp.utils.ShowToast
 import com.rahman.storyapp.view.viewmodel.AddStoryViewModel
 import com.rahman.storyapp.view.viewmodel.ViewModelFactoryStory
 import okhttp3.MediaType.Companion.toMediaType
@@ -52,7 +51,7 @@ class AddStoriesActivity : AppCompatActivity() {
             binding.addStoriesProgressbar.visibility = if (it) View.VISIBLE else View.GONE
         }
         addStoryViewModel.message.observe(this) { msg ->
-            if (msg != null) ShowToast.short(this, msg)
+            if (msg != null) DisplayMessage.showToast(this, msg)
         }
         addStoryViewModel.resultUpload.observe(this) { result ->
             if (result.error == false) finish()
@@ -112,8 +111,7 @@ class AddStoriesActivity : AppCompatActivity() {
     }
 
     private fun showSnackbar(text: String) {
-        val snackbar = Snackbar.make(binding.root, text, Snackbar.LENGTH_SHORT)
-        snackbar.setAction(getString(R.string.oke)) { snackbar.dismiss() }.show()
+        DisplayMessage.showSnackbar(binding.root, text, getString(R.string.oke))
     }
 
     private fun hideKeyboard(view: View) {

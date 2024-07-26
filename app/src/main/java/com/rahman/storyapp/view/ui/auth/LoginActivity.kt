@@ -6,10 +6,9 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.snackbar.Snackbar
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityLoginBinding
-import com.rahman.storyapp.utils.ShowToast
+import com.rahman.storyapp.utils.DisplayMessage
 import com.rahman.storyapp.view.viewmodel.LoginViewModel
 import com.rahman.storyapp.view.viewmodel.ViewModelFactoryUser
 
@@ -55,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
             loginProgressbar.visibility = if (it) View.VISIBLE else View.GONE
         }
         loginViewModel.message.observe(this@LoginActivity) { msg ->
-            if (msg != null) ShowToast.short(this@LoginActivity, msg)
+            if (msg != null) DisplayMessage.showToast(this@LoginActivity, msg)
         }
         loginViewModel.loginResult.observe(this@LoginActivity) { result ->
             if (result.error == false) {
@@ -65,8 +64,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun ActivityLoginBinding.showSnackbar(text: String) {
-        val snackbar = Snackbar.make(root, text, Snackbar.LENGTH_SHORT)
-        snackbar.setAction(getString(R.string.oke)) { snackbar.dismiss() }.show()
+        DisplayMessage.showSnackbar(root, text, getString(R.string.oke))
     }
 
     private fun hideKeyboard(view: View) {

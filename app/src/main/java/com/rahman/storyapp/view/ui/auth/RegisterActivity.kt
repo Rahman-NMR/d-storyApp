@@ -7,10 +7,9 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.snackbar.Snackbar
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityRegisterBinding
-import com.rahman.storyapp.utils.ShowToast
+import com.rahman.storyapp.utils.DisplayMessage
 import com.rahman.storyapp.view.viewmodel.RegisterViewModel
 import com.rahman.storyapp.view.viewmodel.ViewModelFactoryUser
 
@@ -56,7 +55,7 @@ class RegisterActivity : AppCompatActivity() {
             registerProgressbar.visibility = if (it) View.VISIBLE else View.GONE
         }
         registerViewModel.message.observe(this@RegisterActivity) { msg ->
-            if (msg != null) ShowToast.short(this@RegisterActivity, msg)
+            if (msg != null) DisplayMessage.showToast(this@RegisterActivity, msg)
         }
         registerViewModel.registerResult.observe(this@RegisterActivity) { result ->
             if (result.error == false) {
@@ -67,8 +66,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun ActivityRegisterBinding.showSnackbar(text: String) {
-        val snackbar = Snackbar.make(root, text, Snackbar.LENGTH_SHORT)
-        snackbar.setAction(getString(R.string.oke)) { snackbar.dismiss() }.show()
+        DisplayMessage.showSnackbar(root, text, getString(R.string.oke))
     }
 
     private fun hideKeyboard(view: View) {

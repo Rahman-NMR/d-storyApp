@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityMainBinding
-import com.rahman.storyapp.utils.ShowToast
+import com.rahman.storyapp.utils.DisplayMessage
 import com.rahman.storyapp.view.ui.WelcomeActivity
 import com.rahman.storyapp.view.ui.stories.adapterview.AdapterStory
 import com.rahman.storyapp.view.ui.stories.adapterview.PaddingDecoration
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         adapterStory = AdapterStory {
-            ShowToast.short(this, "${it.name}, ${it.createdAt}")
+            DisplayMessage.showToast(this, "${it.name}, ${it.createdAt}")
         }
         binding.rvListStory.addItemDecoration(PaddingDecoration(this, 32))
         binding.rvListStory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
             binding.linearProgressbar.visibility = if (isLoading && adapterStory.itemCount > 0) View.VISIBLE else View.GONE
         }
         storiesViewModel.message.observe(this) { msg ->
-            if (!msg.isNullOrEmpty()) ShowToast.short(this, msg)
+            if (!msg.isNullOrEmpty()) DisplayMessage.showToast(this, msg)
         }
         storiesViewModel.stories.observe(this) { story ->
             if (story != null) {
