@@ -20,7 +20,7 @@
     <string name="show_password">パスワードを表示</string>
     <string name="create_account">アカウントを作成</string>
     <string name="login_now">ここでログイン</string>
-    <string name="add_stories">ストーリーを追加</string>
+    <string name="add_story">ストーリーを追加</string>
     <string name="msg_error_form">エラーメッセージがないことを確認してください。</string>
     <string name="msg_empty_form">すべてのフォームに記入してください。</string>
     <string name="dialog_title">アカウントからログアウトしますか?</string>
@@ -29,5 +29,5 @@
     <string name="dialog_negative">キャンセル</string>
     <string name="oke">はい</string>
     <string name="desc_fab_add_story">ストーリーの追加ページに移動します。</string>
-    <string name="cerita_tidak_tersedia">ストーリーは利用できません</string>
+    <string name="story_unavailable">ストーリーは利用できません</string>
 </resources>
