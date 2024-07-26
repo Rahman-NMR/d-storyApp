@@ -3,7 +3,6 @@ package com.rahman.storyapp.view.ui.stories
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +11,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityMainBinding
 import com.rahman.storyapp.di.Injection
+import com.rahman.storyapp.utils.ShowToast
 import com.rahman.storyapp.view.ui.WelcomeActivity
 import com.rahman.storyapp.view.ui.stories.adapterview.AdapterStory
 import com.rahman.storyapp.view.ui.stories.adapterview.PaddingDecoration
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         adapterStory = AdapterStory {
-            Toast.makeText(this, "${it.name}, ${it.createdAt}", Toast.LENGTH_SHORT).show()
+            ShowToast.short(this, "${it.name}, ${it.createdAt}")
         }
         binding.rvListStory.addItemDecoration(PaddingDecoration(this, 32))
         binding.rvListStory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
             binding.linearProgressbar.visibility = if (isLoading && adapterStory.itemCount > 0) View.VISIBLE else View.GONE
         }
         storiesViewModel.message.observe(this) { msg ->
-            if (!msg.isNullOrEmpty()) Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+            if (!msg.isNullOrEmpty()) ShowToast.short(this, msg)
         }
         storiesViewModel.stories.observe(this) { story ->
             if (story != null) {

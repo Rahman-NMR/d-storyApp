@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityLoginBinding
 import com.rahman.storyapp.di.Injection
+import com.rahman.storyapp.utils.ShowToast
 import com.rahman.storyapp.view.viewmodel.LoginViewModel
 import com.rahman.storyapp.view.viewmodel.ViewModelFactoryUser
 
@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
             loginProgressbar.visibility = if (it) View.VISIBLE else View.GONE
         }
         loginViewModel.message.observe(this@LoginActivity) { msg ->
-            if (msg != null) Toast.makeText(this@LoginActivity, msg, Toast.LENGTH_SHORT).show()
+            if (msg != null) ShowToast.short(this@LoginActivity, msg)
         }
         loginViewModel.loginResult.observe(this@LoginActivity) { result ->
             if (result.error == false) {

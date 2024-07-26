@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityRegisterBinding
 import com.rahman.storyapp.di.Injection
+import com.rahman.storyapp.utils.ShowToast
 import com.rahman.storyapp.view.viewmodel.RegisterViewModel
 import com.rahman.storyapp.view.viewmodel.ViewModelFactoryUser
 
@@ -30,7 +30,6 @@ class RegisterActivity : AppCompatActivity() {
         with(binding) {
             viewModel(registerViewModel)
             topAppBarRegister.setNavigationOnClickListener { finish() }
-            registerProgressbar.visibility = View.GONE
             cbShowPassRegister.setOnCheckedChangeListener { _, isChecked ->
                 edRegisterPassword.inputType =
                     if (isChecked) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
@@ -58,7 +57,7 @@ class RegisterActivity : AppCompatActivity() {
             registerProgressbar.visibility = if (it) View.VISIBLE else View.GONE
         }
         registerViewModel.message.observe(this@RegisterActivity) { msg ->
-            if (msg != null) Toast.makeText(this@RegisterActivity, msg, Toast.LENGTH_SHORT).show()
+            if (msg != null) ShowToast.short(this@RegisterActivity, msg)
         }
         registerViewModel.registerResult.observe(this@RegisterActivity) { result ->
             if (result.error == false) {
