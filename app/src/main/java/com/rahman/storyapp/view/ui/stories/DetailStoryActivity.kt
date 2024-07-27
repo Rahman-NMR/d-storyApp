@@ -14,6 +14,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 class DetailStoryActivity : AppCompatActivity() {
     private var _binding: ActivityDetailStoryBinding? = null
@@ -69,6 +70,7 @@ class DetailStoryActivity : AppCompatActivity() {
 
     private fun String.dateFormat(): String {
         val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+        format.timeZone = TimeZone.getTimeZone("UTC")
         val date = format.parse(this) as Date
         val dateFormater = DateFormat.getDateInstance(DateFormat.FULL).format(date)
         val timeFormater = DateFormat.getTimeInstance(DateFormat.LONG).format(date)
