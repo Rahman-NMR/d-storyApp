@@ -26,25 +26,28 @@ class LoginActivity : AppCompatActivity() {
 
         with(binding) {
             viewModel(loginViewModel)
+            uiAction(loginViewModel)
+        }
+    }
 
-            topAppBarLogin.setNavigationOnClickListener { finish() }
-            cbShowPassLogin.setOnCheckedChangeListener { _, isChecked ->
-                edLoginPassword.inputType =
-                    if (isChecked) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                    else InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            }
-            actionLogin.setOnClickListener {
-                hideKeyboard(currentFocus ?: View(this@LoginActivity))
-                currentFocus?.clearFocus()
+    private fun ActivityLoginBinding.uiAction(loginViewModel: LoginViewModel) {
+        topAppBarLogin.setNavigationOnClickListener { finish() }
+        cbShowPassLogin.setOnCheckedChangeListener { _, isChecked ->
+            edLoginPassword.inputType =
+                if (isChecked) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                else InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        }
+        actionLogin.setOnClickListener {
+            hideKeyboard(currentFocus ?: View(this@LoginActivity))
+            currentFocus?.clearFocus()
 
-                val email = edLoginEmail.text.toString().trim()
-                val password = edLoginPassword.text.toString()
-                if (email.isNotEmpty() && password.isNotEmpty()) {
-                    if (edLoginEmail.error == null && edLoginPassword.error == null) {
-                        loginViewModel.login(email, password)
-                    } else showSnackbar(getString(R.string.msg_error_form))
-                } else showSnackbar(getString(R.string.msg_empty_form))
-            }
+            val email = edLoginEmail.text.toString().trim()
+            val password = edLoginPassword.text.toString()
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                if (edLoginEmail.error == null && edLoginPassword.error == null) {
+                    loginViewModel.login(email, password)
+                } else showSnackbar(getString(R.string.msg_error_form))
+            } else showSnackbar(getString(R.string.msg_empty_form))
         }
     }
 

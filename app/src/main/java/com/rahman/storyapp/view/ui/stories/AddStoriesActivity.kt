@@ -47,21 +47,11 @@ class AddStoriesActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         addStoryViewModel.clearMsg()
-        addStoryViewModel.isLoading.observe(this) {
-            binding.addStoriesProgressbar.visibility = if (it) View.VISIBLE else View.GONE
-        }
-        addStoryViewModel.message.observe(this) { msg ->
-            if (msg != null) DisplayMessage.showToast(this, msg)
-        }
-        addStoryViewModel.resultUpload.observe(this) { result ->
-            if (result.error == false) finish()
-        }
-        addStoryViewModel.currentImageUri.observe(this) { uri ->
-            currentImageUri = uri
-            binding.img.setImageURI(uri)
-            binding.btnDelete.isEnabled = uri != null
-        }
+        viewModelObserver()
+        uiAction()
+    }
 
+    private fun uiAction() {
         binding.topAppBarAddStories.setNavigationOnClickListener { finish() }
         binding.buttonAdd.setOnClickListener {
             hideKeyboard(currentFocus ?: View(this@AddStoriesActivity))
@@ -76,6 +66,23 @@ class AddStoriesActivity : AppCompatActivity() {
         binding.btnDelete.setOnClickListener {
             addStoryViewModel.saveImageUri(null)
             binding.img.setImageResource((R.drawable.img_placeholder))
+        }
+    }
+
+    private fun viewModelObserver() {
+        addStoryViewModel.isLoading.observe(this) {
+            binding.addStoriesProgressbar.visibility = if (it) View.VISIBLE else View.GONE
+        }
+        addStoryViewModel.message.observe(this) { msg ->
+            if (msg != null) DisplayMessage.showToast(this, msg)
+        }
+        addStoryViewModel.resultUpload.observe(this) { result ->
+            if (result.error == false) finish()
+        }
+        addStoryViewModel.currentImageUri.observe(this) { uri ->
+            currentImageUri = uri
+            binding.img.setImageURI(uri)
+            binding.btnDelete.isEnabled = uri != null
         }
     }
 

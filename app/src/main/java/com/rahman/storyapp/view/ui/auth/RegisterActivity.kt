@@ -27,25 +27,29 @@ class RegisterActivity : AppCompatActivity() {
 
         with(binding) {
             viewModel(registerViewModel)
-            topAppBarRegister.setNavigationOnClickListener { finish() }
-            cbShowPassRegister.setOnCheckedChangeListener { _, isChecked ->
-                edRegisterPassword.inputType =
-                    if (isChecked) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                    else InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            }
-            actionRegister.setOnClickListener {
-                hideKeyboard(currentFocus ?: View(this@RegisterActivity))
-                currentFocus?.clearFocus()
+            uiAction(registerViewModel)
+        }
+    }
 
-                val name = edRegisterName.text.toString().trim()
-                val email = edRegisterEmail.text.toString().trim()
-                val password = edRegisterPassword.text.toString()
-                if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-                    if (edRegisterName.error == null && edRegisterEmail.error == null && edRegisterPassword.error == null) {
-                        registerViewModel.register(name, email, password)
-                    } else showSnackbar(getString(R.string.msg_error_form))
-                } else showSnackbar(getString(R.string.msg_empty_form))
-            }
+    private fun ActivityRegisterBinding.uiAction(registerViewModel: RegisterViewModel) {
+        topAppBarRegister.setNavigationOnClickListener { finish() }
+        cbShowPassRegister.setOnCheckedChangeListener { _, isChecked ->
+            edRegisterPassword.inputType =
+                if (isChecked) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                else InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        }
+        actionRegister.setOnClickListener {
+            hideKeyboard(currentFocus ?: View(this@RegisterActivity))
+            currentFocus?.clearFocus()
+
+            val name = edRegisterName.text.toString().trim()
+            val email = edRegisterEmail.text.toString().trim()
+            val password = edRegisterPassword.text.toString()
+            if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+                if (edRegisterName.error == null && edRegisterEmail.error == null && edRegisterPassword.error == null) {
+                    registerViewModel.register(name, email, password)
+                } else showSnackbar(getString(R.string.msg_error_form))
+            } else showSnackbar(getString(R.string.msg_empty_form))
         }
     }
 

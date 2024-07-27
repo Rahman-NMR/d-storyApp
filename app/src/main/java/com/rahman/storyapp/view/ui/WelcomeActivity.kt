@@ -28,7 +28,6 @@ class WelcomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         _binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         splashScreen.setKeepOnScreenCondition { false }
@@ -43,7 +42,7 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.imgWelcome, View.TRANSLATION_X, -30f, 30f).apply {
+        ObjectAnimator.ofFloat(binding.imgWelcome, View.TRANSLATION_X, -20f, 20f).apply {
             duration = 6000
             repeatCount = ObjectAnimator.INFINITE
             repeatMode = ObjectAnimator.REVERSE
