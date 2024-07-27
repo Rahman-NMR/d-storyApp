@@ -65,7 +65,7 @@ class AddStoriesActivity : AppCompatActivity() {
         binding.btnOpenCamera.setOnClickListener { startCamera() }
         binding.btnDelete.setOnClickListener {
             addStoryViewModel.saveImageUri(null)
-            binding.img.setImageResource((R.drawable.img_placeholder))
+            binding.imgPreview.setImageResource((R.drawable.img_placeholder))
         }
     }
 
@@ -81,7 +81,7 @@ class AddStoriesActivity : AppCompatActivity() {
         }
         addStoryViewModel.currentImageUri.observe(this) { uri ->
             currentImageUri = uri
-            binding.img.setImageURI(uri)
+            binding.imgPreview.setImageURI(uri)
             binding.btnDelete.isEnabled = uri != null
         }
     }

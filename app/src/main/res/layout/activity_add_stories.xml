@@ -40,7 +40,7 @@
             android:paddingBottom="@dimen/bottom_padding">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/img"
+                android:id="@+id/img_preview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -67,8 +67,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/btn_delete"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintStart_toStartOf="@+id/img"
-                app:layout_constraintTop_toBottomOf="@+id/img" />
+                app:layout_constraintStart_toStartOf="@+id/img_preview"
+                app:layout_constraintTop_toBottomOf="@+id/img_preview" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_delete"
@@ -80,10 +80,10 @@
                 android:contentDescription="@string/delete_image"
                 android:enabled="false"
                 app:icon="@drawable/icon_delete_24px"
-                app:layout_constraintEnd_toEndOf="@+id/img"
+                app:layout_constraintEnd_toEndOf="@+id/img_preview"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/title"
-                app:layout_constraintTop_toBottomOf="@+id/img" />
+                app:layout_constraintTop_toBottomOf="@+id/img_preview" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_open_gallery"
