@@ -7,11 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.rahman.storyapp.data.remote.response.ErrorResponse
 import com.rahman.storyapp.data.remote.response.StoriesResponse
-import com.rahman.storyapp.data.repository.StoryRepository
+import com.rahman.storyapp.data.repository.UserRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class StoriesViewModel(private val storyRepository: StoryRepository) : ViewModel() {
+class StoriesViewModel(private val repository: UserRepository) : ViewModel() {
     private val _stories = MutableLiveData<StoriesResponse>()
     val stories: LiveData<StoriesResponse> get() = _stories
 
@@ -26,7 +26,7 @@ class StoriesViewModel(private val storyRepository: StoryRepository) : ViewModel
             _isLoading.value = true
 
             try {
-                val response = storyRepository.getStories()
+                val response = repository.getStories()
                 _stories.value = response
 
             } catch (e: HttpException) {

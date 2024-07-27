@@ -7,13 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.rahman.storyapp.data.remote.response.ErrorResponse
-import com.rahman.storyapp.data.repository.StoryRepository
+import com.rahman.storyapp.data.repository.UserRepository
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.HttpException
 
-class AddStoryViewModel(private val storyRepository: StoryRepository) : ViewModel() {
+class AddStoryViewModel(private val repository: UserRepository) : ViewModel() {
     private val _resultUpload = MutableLiveData<ErrorResponse>()
     val resultUpload: LiveData<ErrorResponse> get() = _resultUpload
 
@@ -31,7 +31,7 @@ class AddStoryViewModel(private val storyRepository: StoryRepository) : ViewMode
             _isLoading.value = true
 
             try {
-                val response = storyRepository.addNewStory(photo, desc)
+                val response = repository.addNewStory(photo, desc)
                 _resultUpload.value = response
                 _message.value = response.message
 

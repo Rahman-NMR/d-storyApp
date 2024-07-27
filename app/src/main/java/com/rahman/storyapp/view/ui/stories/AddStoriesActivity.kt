@@ -16,7 +16,7 @@ import com.rahman.storyapp.utils.ImageOperation.getImageUri
 import com.rahman.storyapp.utils.ImageOperation.reduceFileImage
 import com.rahman.storyapp.utils.ImageOperation.uriToFile
 import com.rahman.storyapp.view.viewmodel.stories.AddStoryViewModel
-import com.rahman.storyapp.view.viewmodel.stories.ViewModelFactoryStory
+import com.rahman.storyapp.view.viewmodel.ViewModelFactory
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -27,7 +27,7 @@ class AddStoriesActivity : AppCompatActivity() {
     private val binding get() = _binding!!
     private var currentImageUri: Uri? = null
     private val addStoryViewModel: AddStoryViewModel by viewModels {
-        ViewModelFactoryStory.getInstance(this)
+        ViewModelFactory.getInstance(this)
     }
 
     private val launcherGallery = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->

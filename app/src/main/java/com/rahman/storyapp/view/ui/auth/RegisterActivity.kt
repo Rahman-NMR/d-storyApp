@@ -11,7 +11,7 @@ import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityRegisterBinding
 import com.rahman.storyapp.utils.DisplayMessage
 import com.rahman.storyapp.view.viewmodel.user.RegisterViewModel
-import com.rahman.storyapp.view.viewmodel.user.ViewModelFactoryUser
+import com.rahman.storyapp.view.viewmodel.ViewModelFactory
 
 class RegisterActivity : AppCompatActivity() {
     private var _binding: ActivityRegisterBinding? = null
@@ -22,7 +22,7 @@ class RegisterActivity : AppCompatActivity() {
         _binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModelFactory = ViewModelFactoryUser.getInstance(this)
+        val viewModelFactory = ViewModelFactory.getInstance(this)
         val registerViewModel = ViewModelProvider(this, viewModelFactory)[RegisterViewModel::class.java]
 
         with(binding) {

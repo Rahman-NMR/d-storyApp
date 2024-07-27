@@ -33,10 +33,7 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
                 _message.value = msg
 
                 if (response.error == false) {
-                    response.loginResult?.let { result ->
-                        result.userId?.let { userRepository.saveUserId(it) }
-                        result.token?.let { userRepository.saveTokenUser(it) }
-                    }
+                    response.loginResult?.token?.let { userRepository.saveTokenUser(it) }
                 }
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()

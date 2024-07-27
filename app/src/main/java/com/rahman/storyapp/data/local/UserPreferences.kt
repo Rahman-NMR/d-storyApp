@@ -12,18 +12,10 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "session")
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "token")
 
 class UserPreferences private constructor(private val dataStore: DataStore<Preferences>) {
-    private val session = stringPreferencesKey("session_login")
     private val token = stringPreferencesKey("session_token")
-
-    val getUser: Flow<String?> = dataStore.data
-        .catch { exception ->
-            if (exception is IOException) {
-                emit(emptyPreferences())
-            } else throw exception
-        }.map { pref -> pref[session] }
 
     val getToken: Flow<String?> = dataStore.data
         .catch { exception ->
@@ -32,18 +24,14 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
             } else throw exception
         }.map { pref -> pref[token] }
 
-    suspend fun saveUser(uid: String) {
-        dataStore.edit { it[session] = uid }
-    }
-
     suspend fun saveToken(dataToken: String) {
         dataStore.edit { it[token] = dataToken }
     }
 
     suspend fun logout() {
         dataStore.edit { preference ->
-            preference.remove(session)
             preference.remove(token)
+            preference.clear()
         }
     }
 

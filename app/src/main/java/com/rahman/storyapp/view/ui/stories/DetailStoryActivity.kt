@@ -9,7 +9,7 @@ import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityDetailStoryBinding
 import com.rahman.storyapp.utils.DisplayMessage
 import com.rahman.storyapp.view.viewmodel.stories.DetailStoriesViewModel
-import com.rahman.storyapp.view.viewmodel.stories.ViewModelFactoryStory
+import com.rahman.storyapp.view.viewmodel.ViewModelFactory
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -20,7 +20,7 @@ class DetailStoryActivity : AppCompatActivity() {
     private var _binding: ActivityDetailStoryBinding? = null
     private val binding get() = _binding!!
     private val detailStoryViewModel: DetailStoriesViewModel by viewModels {
-        ViewModelFactoryStory.getInstance(this)
+        ViewModelFactory.getInstance(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

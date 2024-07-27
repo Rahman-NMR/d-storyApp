@@ -10,7 +10,7 @@ import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityLoginBinding
 import com.rahman.storyapp.utils.DisplayMessage
 import com.rahman.storyapp.view.viewmodel.user.LoginViewModel
-import com.rahman.storyapp.view.viewmodel.user.ViewModelFactoryUser
+import com.rahman.storyapp.view.viewmodel.ViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
     private var _binding: ActivityLoginBinding? = null
@@ -21,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
         _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModelFactory = ViewModelFactoryUser.getInstance(this)
+        val viewModelFactory = ViewModelFactory.getInstance(this)
         val loginViewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
 
         with(binding) {

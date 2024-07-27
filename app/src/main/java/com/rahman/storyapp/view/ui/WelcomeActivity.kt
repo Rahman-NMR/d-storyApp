@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -14,7 +13,7 @@ import com.rahman.storyapp.view.ui.auth.LoginActivity
 import com.rahman.storyapp.view.ui.auth.RegisterActivity
 import com.rahman.storyapp.view.ui.stories.MainActivity
 import com.rahman.storyapp.view.viewmodel.user.UserViewModel
-import com.rahman.storyapp.view.viewmodel.user.ViewModelFactoryUser
+import com.rahman.storyapp.view.viewmodel.ViewModelFactory
 import kotlinx.coroutines.runBlocking
 
 class WelcomeActivity : AppCompatActivity() {
@@ -22,7 +21,7 @@ class WelcomeActivity : AppCompatActivity() {
     private val binding get() = _binding!!
     private var splashOpen = false
     private val userViewModel: UserViewModel by viewModels {
-        ViewModelFactoryUser.getInstance(this)
+        ViewModelFactory.getInstance(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rahman.storyapp.R
@@ -16,26 +15,21 @@ import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.idStory
 import com.rahman.storyapp.view.ui.stories.adapterview.AdapterStory
 import com.rahman.storyapp.view.ui.stories.adapterview.PaddingDecoration
 import com.rahman.storyapp.view.viewmodel.stories.StoriesViewModel
-import com.rahman.storyapp.view.viewmodel.stories.ViewModelFactoryStory
 import com.rahman.storyapp.view.viewmodel.user.UserViewModel
-import com.rahman.storyapp.view.viewmodel.user.ViewModelFactoryUser
+import com.rahman.storyapp.view.viewmodel.ViewModelFactory
 import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapterStory: AdapterStory
-    private val storiesViewModel: StoriesViewModel by viewModels {
-        ViewModelFactoryStory.getInstance(this)
-    }
+    private val storiesViewModel: StoriesViewModel by viewModels { ViewModelFactory.getInstance(this) }
+    private val userViewModel: UserViewModel by viewModels { ViewModelFactory.getInstance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val userFactory = ViewModelFactoryUser.getInstance(this)
-        val userViewModel = ViewModelProvider(this, userFactory)[UserViewModel::class.java]
 
         binding.topAppBarMain.setOnMenuItemClickListener {
             when (it.itemId) {
