@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_detail_story"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ui.stories.DetailStoryActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_detail_story"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/top_app_bar_detail_story"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            app:navigationIcon="@drawable/baseline_arrow_back_24"
+            app:navigationIconTint="@color/md_theme_onSurface"
+            app:title="@string/detail_story" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scroll_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/bottom_padding">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_item_photo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_placeholder"
+                    android:transitionName="photo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_item_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/text_empty"
+                    android:textColor="@color/md_theme_secondary"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:transitionName="name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_item_photo" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_item_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/text_empty"
+                    android:textColor="@color/md_theme_secondary"
+                    android:textSize="16sp"
+                    android:transitionName="description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_item_name" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_item_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:alpha="0.85"
+                    android:gravity="end|center_vertical"
+                    android:text="@string/text_empty"
+                    android:textColor="@color/md_theme_secondary"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_item_desc" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp"
+        tools:visibility="gone">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/detail_story_progresbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/empty_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.85"
+            android:gravity="center"
+            android:lineSpacingExtra="3sp"
+            android:padding="16dp"
+            android:text="@string/story_not_found"
+            android:textSize="20sp" />
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

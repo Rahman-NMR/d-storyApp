@@ -1,5 +1,6 @@
 package com.rahman.storyapp.data.remote.api
 
+import com.rahman.storyapp.data.remote.response.DetailStoriesResponse
 import com.rahman.storyapp.data.remote.response.StoriesResponse
 import com.rahman.storyapp.data.remote.response.LoginResponse
 import com.rahman.storyapp.data.remote.response.ErrorResponse
@@ -11,6 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Path
 
 interface ApiService {
     @FormUrlEncoded
@@ -30,6 +32,11 @@ interface ApiService {
 
     @GET("stories")
     suspend fun getStories(): StoriesResponse
+
+    @GET("stories/{id}")
+    suspend fun detailStories(
+        @Path("id") id: String
+    ): DetailStoriesResponse
 
     @Multipart
     @POST("stories")

@@ -18,6 +18,9 @@
         android:theme="@style/Theme.StoryApp"
         tools:targetApi="31">
         <activity
+            android:name=".view.ui.stories.DetailStoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.ui.stories.AddStoriesActivity"
             android:exported="false"
             android:windowSoftInputMode="stateVisible|adjustResize" />
@@ -61,6 +64,7 @@
             <intent-filter>
                 <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
             </intent-filter>
+
             <meta-data
                 android:name="photopicker_activity:0:required"
                 android:value="" />

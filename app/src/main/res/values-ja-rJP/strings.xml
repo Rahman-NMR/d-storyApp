@@ -21,6 +21,7 @@
     <string name="create_account">アカウントを作成</string>
     <string name="login_now">ここでログイン</string>
     <string name="add_story">ストーリーを追加</string>
+    <string name="detail_story">詳細ストーリー</string>
     <string name="msg_error_form">エラーメッセージがないことを確認してください</string>
     <string name="msg_empty_form">すべてのフォームに記入してください</string>
     <string name="dialog_title">アカウントからログアウトしますか?</string>
@@ -30,6 +31,7 @@
     <string name="oke">閉じる</string>
     <string name="desc_fab_add_story">ストーリーの追加ページに移動</string>
     <string name="story_unavailable">ストーリーは利用できません</string>
+    <string name="story_not_found">ストーリーが見つかりません</string>
     <string name="description">説明</string>
     <string name="hint_description">写真の説明を追加</string>
     <string name="upload_story">ストーリーをアップロード</string>

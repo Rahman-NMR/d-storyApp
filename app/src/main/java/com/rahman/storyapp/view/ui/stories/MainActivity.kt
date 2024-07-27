@@ -12,11 +12,12 @@ import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityMainBinding
 import com.rahman.storyapp.utils.DisplayMessage
 import com.rahman.storyapp.view.ui.WelcomeActivity
+import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.idStory
 import com.rahman.storyapp.view.ui.stories.adapterview.AdapterStory
 import com.rahman.storyapp.view.ui.stories.adapterview.PaddingDecoration
 import com.rahman.storyapp.view.viewmodel.stories.StoriesViewModel
-import com.rahman.storyapp.view.viewmodel.user.UserViewModel
 import com.rahman.storyapp.view.viewmodel.stories.ViewModelFactoryStory
+import com.rahman.storyapp.view.viewmodel.user.UserViewModel
 import com.rahman.storyapp.view.viewmodel.user.ViewModelFactoryUser
 import kotlinx.coroutines.runBlocking
 
@@ -47,8 +48,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        adapterStory = AdapterStory {
-            DisplayMessage.showToast(this, "${it.name}, ${it.createdAt}")
+        adapterStory = AdapterStory { story ->
+            idStory = story.id
+            /*val intent = Intent(this, DetailStoryActivity::class.java)
+            val optionsCompat: ActivityOptionsCompat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    this,
+                    Pair("photo", "profile"),
+                    Pair("name", "name"),
+                    Pair("description", "description"),
+                )
+            startActivity(intent, optionsCompat.toBundle())*/
         }
         binding.rvListStory.addItemDecoration(PaddingDecoration(this, 32))
         binding.rvListStory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

@@ -1,8 +1,12 @@
 package com.rahman.storyapp.view.ui.stories.adapterview
 
+import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -10,6 +14,7 @@ import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 import com.rahman.storyapp.R
 import com.rahman.storyapp.data.remote.response.ListStoryItem
+import com.rahman.storyapp.view.ui.stories.DetailStoryActivity
 
 class AdapterStory(private val function: (ListStoryItem) -> Unit) : RecyclerView.Adapter<AdapterStory.ViewHolder>() {
     private var dataStories = ArrayList<ListStoryItem>()
@@ -34,7 +39,13 @@ class AdapterStory(private val function: (ListStoryItem) -> Unit) : RecyclerView
             name.text = listStoryItem.name
             desc.text = listStoryItem.description
 
-            itemView.setOnClickListener { function(listStoryItem) }
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, DetailStoryActivity::class.java)
+                val optionsCompat: ActivityOptionsCompat = ActivityOptionsCompat
+                    .makeSceneTransitionAnimation(itemView.context as Activity, Pair(photo, "photo"), Pair(name, "name"), Pair(desc, "description"))
+                itemView.context.startActivity(intent, optionsCompat.toBundle())
+                function(listStoryItem)
+            }
         }
     }
 

@@ -20,7 +20,8 @@
     <string name="show_password">Tampilkan kata sandi</string>
     <string name="create_account">Buat akun</string>
     <string name="login_now">Masuk sekarang</string>
-    <string name="add_story">Tambah Cerita</string>
+    <string name="add_story">Tambah Story</string>
+    <string name="detail_story">Detail Story</string>
     <string name="msg_error_form">Pastikan tidak ada pesan error</string>
     <string name="msg_empty_form">Harap melengkapi semua form</string>
     <string name="dialog_title">Keluar dari Akun?</string>
@@ -28,11 +29,12 @@
     <string name="dialog_positive">Keluar</string>
     <string name="dialog_negative">Batalkan</string>
     <string name="oke">Tutup</string>
-    <string name="desc_fab_add_story">Ke halaman tambah Story</string>
+    <string name="desc_fab_add_story">Ke halaman Tambah Story</string>
     <string name="story_unavailable">Story tidak tersedia</string>
+    <string name="story_not_found">Story tidak ditemukan</string>
     <string name="description">Deskripsi</string>
     <string name="hint_description">Tambahkan deskripsi foto</string>
-    <string name="upload_story">Unggah cerita</string>
+    <string name="upload_story">Unggah story</string>
     <string name="camera">Kamera</string>
     <string name="gallery">Galeri</string>
     <string name="add_image">Tambahkan gambar</string>
