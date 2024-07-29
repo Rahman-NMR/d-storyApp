@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.rahman.storyapp.data.repository.UserRepository
 import com.rahman.storyapp.di.Injection
 import com.rahman.storyapp.view.viewmodel.stories.AddStoryViewModel
-import com.rahman.storyapp.view.viewmodel.stories.DetailStoriesViewModel
 import com.rahman.storyapp.view.viewmodel.stories.StoriesViewModel
 import com.rahman.storyapp.view.viewmodel.user.LoginViewModel
 import com.rahman.storyapp.view.viewmodel.user.RegisterViewModel
@@ -26,9 +25,6 @@ class ViewModelFactory private constructor(private val repository: UserRepositor
         }
         if (modelClass.isAssignableFrom(StoriesViewModel::class.java)) {
             return StoriesViewModel(repository) as T
-        }
-        if (modelClass.isAssignableFrom(DetailStoriesViewModel::class.java)) {
-            return DetailStoriesViewModel(repository) as T
         }
         if (modelClass.isAssignableFrom(AddStoryViewModel::class.java)) {
             return AddStoryViewModel(repository) as T

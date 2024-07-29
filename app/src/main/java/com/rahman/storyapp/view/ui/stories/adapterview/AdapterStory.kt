@@ -16,6 +16,10 @@ import com.google.android.material.textview.MaterialTextView
 import com.rahman.storyapp.R
 import com.rahman.storyapp.data.remote.response.ListStoryItem
 import com.rahman.storyapp.view.ui.stories.DetailStoryActivity
+import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.EXTRA_DESC
+import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.EXTRA_NAME
+import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.EXTRA_PHOTO
+import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.EXTRA_TIME
 
 class AdapterStory : RecyclerView.Adapter<AdapterStory.ViewHolder>() {
     private var dataStories = ArrayList<ListStoryItem>()
@@ -44,7 +48,10 @@ class AdapterStory : RecyclerView.Adapter<AdapterStory.ViewHolder>() {
 
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, DetailStoryActivity::class.java)
-                    .putExtra("key", listStoryItem.id)
+                    .putExtra(EXTRA_PHOTO, listStoryItem.photoUrl)
+                    .putExtra(EXTRA_NAME, listStoryItem.name)
+                    .putExtra(EXTRA_DESC, listStoryItem.description)
+                    .putExtra(EXTRA_TIME, listStoryItem.createdAt)
                 val optionsCompat: ActivityOptionsCompat = ActivityOptionsCompat
                     .makeSceneTransitionAnimation(itemView.context as Activity, Pair(photo, "photo"), Pair(name, "name"), Pair(desc, "description"))
                 itemView.context.startActivity(intent, optionsCompat.toBundle())

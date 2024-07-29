@@ -3,7 +3,6 @@ package com.rahman.storyapp.data.repository
 import com.rahman.storyapp.data.local.UserModel
 import com.rahman.storyapp.data.local.UserPreferences
 import com.rahman.storyapp.data.remote.api.ApiService
-import com.rahman.storyapp.data.remote.response.DetailStoriesResponse
 import com.rahman.storyapp.data.remote.response.ErrorResponse
 import com.rahman.storyapp.data.remote.response.LoginResponse
 import com.rahman.storyapp.data.remote.response.StoriesResponse
@@ -34,10 +33,6 @@ class UserRepository(private val apiService: ApiService, private val preference:
 
     suspend fun getStories(): StoriesResponse {
         return apiService.getStories()
-    }
-
-    suspend fun detailStories(id: String): DetailStoriesResponse {
-        return apiService.detailStories(id)
     }
 
     suspend fun addNewStory(photo: MultipartBody.Part, desc: RequestBody): ErrorResponse {
