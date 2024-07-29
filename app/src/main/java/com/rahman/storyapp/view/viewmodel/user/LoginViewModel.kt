@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.rahman.storyapp.data.local.UserModel
 import com.rahman.storyapp.data.remote.response.ErrorResponse
 import com.rahman.storyapp.data.remote.response.LoginResponse
 import com.rahman.storyapp.data.repository.UserRepository
@@ -33,7 +34,13 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
                 _message.value = msg
 
                 if (response.error == false) {
-                    response.loginResult?.token?.let { userRepository.saveTokenUser(it) }
+                    val result = response.loginResult
+                    if (result != null) {
+                        val name = result.name ?: ""
+                        val uid = result.userId ?: ""
+                        val token = result.token ?: ""
+                        userRepository.saveUser(UserModel(name, uid, token))
+                    }
                 }
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()

@@ -4,6 +4,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -30,7 +31,15 @@ class WelcomeActivity : AppCompatActivity() {
         _binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         splashScreen.setKeepOnScreenCondition { false }
-
+        runBlocking {
+            Log.e(
+                "testData welcome", "\nname : ${userViewModel.getUser().name}" +
+                        "\n" +
+                        "uid : ${userViewModel.getUser().userId}" +
+                        "\n" +
+                        "token : ${userViewModel.getUser().token}"
+            )
+        }
         loginSession()
         playAnimation()
 
@@ -63,7 +72,7 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     private fun loginSession() {
-        val isLogin = runBlocking { userViewModel.isAvailable() }
+        val isLogin = runBlocking { userViewModel.isLogin() }
 
         if (isLogin) {
             startActivity(Intent(this@WelcomeActivity, MainActivity::class.java))

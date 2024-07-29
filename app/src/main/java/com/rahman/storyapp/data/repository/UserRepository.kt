@@ -1,5 +1,6 @@
 package com.rahman.storyapp.data.repository
 
+import com.rahman.storyapp.data.local.UserModel
 import com.rahman.storyapp.data.local.UserPreferences
 import com.rahman.storyapp.data.remote.api.ApiService
 import com.rahman.storyapp.data.remote.response.DetailStoriesResponse
@@ -19,12 +20,12 @@ class UserRepository(private val apiService: ApiService, private val preference:
         return apiService.login(email, password)
     }
 
-    suspend fun saveTokenUser(token: String) {
-        preference.saveToken(token)
+    suspend fun saveUser(user: UserModel) {
+        preference.saveUser(user)
     }
 
-    suspend fun getTokenUser(): String? {
-        return preference.getToken.first()
+    suspend fun getUser(): UserModel {
+        return preference.getUser.first()
     }
 
     suspend fun logout() {

@@ -2,6 +2,7 @@ package com.rahman.storyapp.view.ui.stories
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,9 +15,9 @@ import com.rahman.storyapp.view.ui.WelcomeActivity
 import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.idStory
 import com.rahman.storyapp.view.ui.stories.adapterview.AdapterStory
 import com.rahman.storyapp.view.ui.stories.adapterview.PaddingDecoration
+import com.rahman.storyapp.view.viewmodel.ViewModelFactory
 import com.rahman.storyapp.view.viewmodel.stories.StoriesViewModel
 import com.rahman.storyapp.view.viewmodel.user.UserViewModel
-import com.rahman.storyapp.view.viewmodel.ViewModelFactory
 import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +31,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        runBlocking {
+            Log.e(
+                "testData main", "\nname : ${userViewModel.getUser().name}" +
+                        "\n" +
+                        "uid : ${userViewModel.getUser().userId}" +
+                        "\n" +
+                        "token : ${userViewModel.getUser().token}"
+            )
+        }
 
         binding.topAppBarMain.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -44,15 +54,6 @@ class MainActivity : AppCompatActivity() {
 
         adapterStory = AdapterStory { story ->
             idStory = story.id
-            /*val intent = Intent(this, DetailStoryActivity::class.java)
-            val optionsCompat: ActivityOptionsCompat =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    this,
-                    Pair("photo", "profile"),
-                    Pair("name", "name"),
-                    Pair("description", "description"),
-                )
-            startActivity(intent, optionsCompat.toBundle())*/
         }
         binding.rvListStory.addItemDecoration(PaddingDecoration(this, 32))
         binding.rvListStory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -73,12 +74,10 @@ class MainActivity : AppCompatActivity() {
             .setTitle(getString(R.string.dialog_title))
             .setMessage(getString(R.string.dialog_message))
             .setPositiveButton(getString(R.string.dialog_positive)) { dialog, _ ->
-                runBlocking {
-                    userViewModel.logout()
-                    dialog.dismiss()
-                    startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
-                    finish()
-                }
+                userViewModel.logout()
+                dialog.dismiss()
+                startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
+                finish()
             }
             .setNegativeButton(getString(R.string.dialog_negative)) { dialog, _ -> dialog.dismiss() }
             .show()
@@ -104,11 +103,6 @@ class MainActivity : AppCompatActivity() {
                 adapterStory.storyList(story.listStory)
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        startup()
     }
 
     override fun onDestroy() {
