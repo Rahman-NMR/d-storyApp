@@ -22,12 +22,14 @@ class DetailStoryActivity : AppCompatActivity() {
     private val detailStoryViewModel: DetailStoriesViewModel by viewModels {
         ViewModelFactory.getInstance(this)
     }
+    private var idStory: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityDetailStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        idStory = intent.getStringExtra("key") ?: ""
         startup()
         viewModelObserver()
 
@@ -40,7 +42,7 @@ class DetailStoryActivity : AppCompatActivity() {
 
     private fun startup() {
         detailStoryViewModel.clearMsg()
-        detailStoryViewModel.showDetailStory(idStory ?: "")
+        detailStoryViewModel.showDetailStory(idStory)
     }
 
     private fun viewModelObserver() {
@@ -80,9 +82,5 @@ class DetailStoryActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    companion object {
-        var idStory: String? = null
     }
 }

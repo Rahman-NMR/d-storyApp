@@ -2,7 +2,6 @@ package com.rahman.storyapp.view.ui.stories
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -30,9 +29,7 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapterStory = AdapterStory { story ->
-            idStory = story.id
-        }
+        adapterStory = AdapterStory()
         binding.rvListStory.addItemDecoration(PaddingDecoration(this, 32))
         binding.rvListStory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvListStory.adapter = adapterStory

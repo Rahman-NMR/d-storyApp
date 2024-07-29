@@ -10,13 +10,14 @@ import androidx.core.util.Pair
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 import com.rahman.storyapp.R
 import com.rahman.storyapp.data.remote.response.ListStoryItem
 import com.rahman.storyapp.view.ui.stories.DetailStoryActivity
 
-class AdapterStory(private val function: (ListStoryItem) -> Unit) : RecyclerView.Adapter<AdapterStory.ViewHolder>() {
+class AdapterStory : RecyclerView.Adapter<AdapterStory.ViewHolder>() {
     private var dataStories = ArrayList<ListStoryItem>()
 
     fun storyList(list: List<ListStoryItem>) {
@@ -28,23 +29,25 @@ class AdapterStory(private val function: (ListStoryItem) -> Unit) : RecyclerView
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(listStoryItem: ListStoryItem, function: (ListStoryItem) -> Unit) {
+        fun bind(listStoryItem: ListStoryItem) {
             val photo = itemView.findViewById<ShapeableImageView>(R.id.iv_item_photo)
             val name = itemView.findViewById<MaterialTextView>(R.id.tv_item_name)
             val desc = itemView.findViewById<MaterialTextView>(R.id.tv_item_desc)
 
             desc.visibility = if (listStoryItem.description.isNullOrEmpty()) View.GONE else View.VISIBLE
             Glide.with(itemView.context).load(listStoryItem.photoUrl)
-                .placeholder(R.drawable.img_placeholder).into(photo)
+                .placeholder(R.drawable.img_placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                .into(photo)
             name.text = listStoryItem.name
             desc.text = listStoryItem.description
 
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, DetailStoryActivity::class.java)
+                    .putExtra("key", listStoryItem.id)
                 val optionsCompat: ActivityOptionsCompat = ActivityOptionsCompat
                     .makeSceneTransitionAnimation(itemView.context as Activity, Pair(photo, "photo"), Pair(name, "name"), Pair(desc, "description"))
                 itemView.context.startActivity(intent, optionsCompat.toBundle())
-                function(listStoryItem)
             }
         }
     }
@@ -58,6 +61,6 @@ class AdapterStory(private val function: (ListStoryItem) -> Unit) : RecyclerView
     override fun getItemCount(): Int = dataStories.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(dataStories[position], function)
+        holder.bind(dataStories[position])
     }
 }
