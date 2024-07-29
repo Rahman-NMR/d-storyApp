@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.glide)
+    implementation(libs.androidx.exifinterface)
 
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
