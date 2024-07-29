@@ -51,6 +51,8 @@ class DetailStoryActivity : AppCompatActivity() {
         }
         detailStoryViewModel.isLoading.observe(this) {
             binding.detailStoryProgresbar.visibility = if (it) View.VISIBLE else View.GONE
+            binding.emptyMsg.visibility =
+                if (!it && detailStoryViewModel.detailStories.value == null) View.VISIBLE else View.GONE
         }
         detailStoryViewModel.detailStories.observe(this) { response ->
             val story = response.story
