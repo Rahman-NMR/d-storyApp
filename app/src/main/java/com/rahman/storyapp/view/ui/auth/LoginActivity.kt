@@ -1,5 +1,6 @@
 package com.rahman.storyapp.view.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityLoginBinding
 import com.rahman.storyapp.utils.DisplayMessage
+import com.rahman.storyapp.view.ui.WelcomeActivity
 import com.rahman.storyapp.view.viewmodel.user.LoginViewModel
 import com.rahman.storyapp.view.viewmodel.ViewModelFactory
 
@@ -61,7 +63,11 @@ class LoginActivity : AppCompatActivity() {
         }
         loginViewModel.loginResult.observe(this@LoginActivity) { result ->
             if (result.error == false) {
-                if (result.loginResult != null) finish()
+                if (result.loginResult != null) {
+                    val intent = Intent(this@LoginActivity, WelcomeActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                }
             }
         }
     }

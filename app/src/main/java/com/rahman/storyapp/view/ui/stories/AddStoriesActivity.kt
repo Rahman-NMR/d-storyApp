@@ -1,5 +1,6 @@
 package com.rahman.storyapp.view.ui.stories
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -77,7 +78,11 @@ class AddStoriesActivity : AppCompatActivity() {
             if (msg != null) DisplayMessage.showToast(this, msg)
         }
         addStoryViewModel.resultUpload.observe(this) { result ->
-            if (result.error == false) finish()
+            if (result.error == false) {
+                val intent = Intent(this@AddStoriesActivity, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            }
         }
         addStoryViewModel.currentImageUri.observe(this) { uri ->
             currentImageUri = uri
