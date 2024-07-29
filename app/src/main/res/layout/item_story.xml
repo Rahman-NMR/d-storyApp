@@ -3,10 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
     android:background="@color/md_theme_surfaceContainerLow_highContrast"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
+    android:maxWidth="500dp"
     android:paddingBottom="16dp">
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -19,8 +21,7 @@
         android:transitionName="photo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_max="500dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_item_name"
@@ -36,8 +37,7 @@
         android:transitionName="name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_item_photo"
-        app:layout_constraintWidth_max="500dp" />
+        app:layout_constraintTop_toBottomOf="@id/iv_item_photo" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_item_desc"
@@ -53,6 +53,5 @@
         android:transitionName="description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_item_name"
-        app:layout_constraintWidth_max="500dp" />
+        app:layout_constraintTop_toBottomOf="@id/tv_item_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>
