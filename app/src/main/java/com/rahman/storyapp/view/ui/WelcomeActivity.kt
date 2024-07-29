@@ -4,7 +4,6 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +12,8 @@ import com.rahman.storyapp.databinding.ActivityWelcomeBinding
 import com.rahman.storyapp.view.ui.auth.LoginActivity
 import com.rahman.storyapp.view.ui.auth.RegisterActivity
 import com.rahman.storyapp.view.ui.stories.MainActivity
-import com.rahman.storyapp.view.viewmodel.user.UserViewModel
 import com.rahman.storyapp.view.viewmodel.ViewModelFactory
+import com.rahman.storyapp.view.viewmodel.user.UserViewModel
 import kotlinx.coroutines.runBlocking
 
 class WelcomeActivity : AppCompatActivity() {
@@ -31,22 +30,12 @@ class WelcomeActivity : AppCompatActivity() {
         _binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         splashScreen.setKeepOnScreenCondition { false }
-        runBlocking {
-            Log.e(
-                "testData welcome", "\nname : ${userViewModel.getUser().name}" +
-                        "\n" +
-                        "uid : ${userViewModel.getUser().userId}" +
-                        "\n" +
-                        "token : ${userViewModel.getUser().token}"
-            )
-        }
+
         loginSession()
         playAnimation()
 
         binding.btnLogin.setOnClickListener { startActivity(Intent(this, LoginActivity::class.java)) }
         binding.btnRegister.setOnClickListener { startActivity(Intent(this, RegisterActivity::class.java)) }
-
-        splashOpen = true
     }
 
     private fun playAnimation() {
@@ -75,9 +64,11 @@ class WelcomeActivity : AppCompatActivity() {
         val isLogin = runBlocking { userViewModel.isLogin() }
 
         if (isLogin) {
+            splashOpen = true
+
             startActivity(Intent(this@WelcomeActivity, MainActivity::class.java))
             finish()
-        }
+        } else splashOpen = true
     }
 
     override fun onStart() {
