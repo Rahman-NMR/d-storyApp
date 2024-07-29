@@ -41,17 +41,6 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        binding.topAppBarMain.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.action_logout -> {
-                    alertDialog(userViewModel)
-                    true
-                }
-
-                else -> false
-            }
-        }
-
         adapterStory = AdapterStory { story ->
             idStory = story.id
         }
@@ -61,11 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         startup()
         viewModelObserver()
-        binding.fabAddStory.setOnClickListener { startActivity(Intent(this, AddStoriesActivity::class.java)) }
-        binding.swipeRefresh.setOnRefreshListener {
-            startup()
-            binding.swipeRefresh.isRefreshing = false
-        }
+        uiAction()
     }
 
     private fun alertDialog(userViewModel: UserViewModel) {
@@ -86,6 +71,24 @@ class MainActivity : AppCompatActivity() {
     private fun startup() {
         storiesViewModel.clearMsg()
         storiesViewModel.showStories()
+    }
+
+    private fun uiAction() {
+        binding.fabAddStory.setOnClickListener { startActivity(Intent(this, AddStoriesActivity::class.java)) }
+        binding.swipeRefresh.setOnRefreshListener {
+            startup()
+            binding.swipeRefresh.isRefreshing = false
+        }
+        binding.topAppBarMain.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.action_logout -> {
+                    alertDialog(userViewModel)
+                    true
+                }
+
+                else -> false
+            }
+        }
     }
 
     private fun viewModelObserver() {
