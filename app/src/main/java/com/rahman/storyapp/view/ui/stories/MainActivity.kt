@@ -12,13 +12,11 @@ import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityMainBinding
 import com.rahman.storyapp.utils.DisplayMessage
 import com.rahman.storyapp.view.ui.WelcomeActivity
-import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.idStory
 import com.rahman.storyapp.view.ui.stories.adapterview.AdapterStory
 import com.rahman.storyapp.view.ui.stories.adapterview.PaddingDecoration
 import com.rahman.storyapp.view.viewmodel.ViewModelFactory
 import com.rahman.storyapp.view.viewmodel.stories.StoriesViewModel
 import com.rahman.storyapp.view.viewmodel.user.UserViewModel
-import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
@@ -31,15 +29,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        runBlocking {
-            Log.e(
-                "testData main", "\nname : ${userViewModel.getUser().name}" +
-                        "\n" +
-                        "uid : ${userViewModel.getUser().userId}" +
-                        "\n" +
-                        "token : ${userViewModel.getUser().token}"
-            )
-        }
 
         adapterStory = AdapterStory { story ->
             idStory = story.id
