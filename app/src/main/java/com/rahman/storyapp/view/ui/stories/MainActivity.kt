@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         storiesViewModel.stories.observe(this) { story ->
             if (story != null) {
                 story.listStory.sortedByDescending { it.createdAt }
-                adapterStory.storyList(story.listStory)
+                adapterStory.submitList(story.listStory)
             }
         }
     }
