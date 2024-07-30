@@ -83,7 +83,6 @@
                 android:alpha="0.85"
                 android:gravity="end|center_vertical"
                 android:text="@string/text_empty"
-                android:textColor="@color/md_theme_secondary"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_item_desc" />
