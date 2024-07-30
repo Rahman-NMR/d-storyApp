@@ -19,7 +19,7 @@
             android:minHeight="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:liftOnScroll="true"
-            app:logo="@drawable/logo_txt"
+            app:logo="@drawable/logo"
             app:menu="@menu/main_menu" />
     </com.google.android.material.appbar.AppBarLayout>
 
