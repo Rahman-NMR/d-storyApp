@@ -39,7 +39,7 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/img_placeholder"
-                android:transitionName="photo"
+                android:transitionName="@string/se_photo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +55,7 @@
                 android:textColor="@color/md_theme_secondary"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:transitionName="name"
+                android:transitionName="@string/se_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_item_photo" />
@@ -69,7 +69,7 @@
                 android:text="@string/text_empty"
                 android:textColor="@color/md_theme_secondary"
                 android:textSize="16sp"
-                android:transitionName="description"
+                android:transitionName="@string/se_desc"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_item_name" />

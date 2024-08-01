@@ -27,7 +27,8 @@ class DetailStoryActivity : AppCompatActivity() {
 
         binding.topAppBarDetailStory.setNavigationOnClickListener { finish() }
         Glide.with(this).load(photoUrl)
-            .placeholder(R.drawable.img_placeholder).into(binding.ivItemPhoto)
+            .placeholder(R.drawable.img_placeholder)
+            .into(binding.ivItemPhoto)
         binding.tvItemName.text = name
         binding.tvItemDesc.text = description
         binding.tvItemTime.text = createdAt.dateFormat()

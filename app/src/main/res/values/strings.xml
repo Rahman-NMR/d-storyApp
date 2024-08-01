@@ -30,7 +30,6 @@
     <string name="dialog_negative">Cancel</string>
     <string name="oke">Close</string>
     <string name="desc_fab_add_story">Go to the add Story page</string>
-    <string name="text_empty" translatable="false">-</string>
     <string name="story_unavailable">Story not available</string>
     <string name="story_not_found">Story not found</string>
     <string name="description">Description</string>
@@ -42,5 +41,10 @@
     <string name="delete_image">Delete image</string>
     <string name="msg_empty_image">No images added</string>
     <string name="msg_empty_description">Description cannot be empty</string>
+
     <string name="title_activity_maps" translatable="false">MapsActivity</string>
+    <string name="text_empty" translatable="false">-</string>
+    <string name="se_photo" translatable="false">photo</string>
+    <string name="se_name" translatable="false">name</string>
+    <string name="se_desc" translatable="false">desc</string>
 </resources>

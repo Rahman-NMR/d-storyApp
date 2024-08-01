@@ -28,6 +28,9 @@ class AdapterStory : ListAdapter<ListStoryItem, AdapterStory.ViewHolder>(DiffCal
             val photo = itemView.findViewById<ShapeableImageView>(R.id.iv_item_photo)
             val name = itemView.findViewById<MaterialTextView>(R.id.tv_item_name)
             val desc = itemView.findViewById<MaterialTextView>(R.id.tv_item_desc)
+            val sePhoto = itemView.context.getString(R.string.se_photo)
+            val seName = itemView.context.getString(R.string.se_name)
+            val seDesc = itemView.context.getString(R.string.se_desc)
 
             desc.visibility = if (listStoryItem.description.isNullOrEmpty()) View.GONE else View.VISIBLE
             Glide.with(itemView.context).load(listStoryItem.photoUrl)
@@ -44,7 +47,7 @@ class AdapterStory : ListAdapter<ListStoryItem, AdapterStory.ViewHolder>(DiffCal
                     .putExtra(EXTRA_DESC, listStoryItem.description)
                     .putExtra(EXTRA_TIME, listStoryItem.createdAt)
                 val optionsCompat: ActivityOptionsCompat = ActivityOptionsCompat
-                    .makeSceneTransitionAnimation(itemView.context as Activity, Pair(photo, "photo"), Pair(name, "name"), Pair(desc, "description"))
+                    .makeSceneTransitionAnimation(itemView.context as Activity, Pair(photo, sePhoto), Pair(name, seName), Pair(desc, seDesc))
                 itemView.context.startActivity(intent, optionsCompat.toBundle())
             }
         }
