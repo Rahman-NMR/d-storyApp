@@ -7,6 +7,7 @@ import com.rahman.storyapp.data.repository.UserRepository
 import com.rahman.storyapp.di.Injection
 import com.rahman.storyapp.view.viewmodel.stories.AddStoryViewModel
 import com.rahman.storyapp.view.viewmodel.stories.StoriesViewModel
+import com.rahman.storyapp.view.viewmodel.stories.StoriesLocationViewModel
 import com.rahman.storyapp.view.viewmodel.user.LoginViewModel
 import com.rahman.storyapp.view.viewmodel.user.RegisterViewModel
 import com.rahman.storyapp.view.viewmodel.user.UserViewModel
@@ -25,6 +26,9 @@ class ViewModelFactory private constructor(private val repository: UserRepositor
         }
         if (modelClass.isAssignableFrom(StoriesViewModel::class.java)) {
             return StoriesViewModel(repository) as T
+        }
+        if (modelClass.isAssignableFrom(StoriesLocationViewModel::class.java)) {
+            return StoriesLocationViewModel(repository) as T
         }
         if (modelClass.isAssignableFrom(AddStoryViewModel::class.java)) {
             return AddStoryViewModel(repository) as T

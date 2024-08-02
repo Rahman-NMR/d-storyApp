@@ -41,4 +41,5 @@
     <string name="delete_image">画像を削除</string>
     <string name="msg_empty_image">画像は追加されていません</string>
     <string name="msg_empty_description">説明は空欄にできません</string>
+    <string name="find_stories">ストーリーを探す</string>
 </resources>

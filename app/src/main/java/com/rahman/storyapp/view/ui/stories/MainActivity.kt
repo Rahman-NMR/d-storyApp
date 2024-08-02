@@ -72,6 +72,11 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.action_maps -> {
+                    startActivity(Intent(this@MainActivity, MapsActivity::class.java))
+                    true
+                }
+
                 else -> false
             }
         }

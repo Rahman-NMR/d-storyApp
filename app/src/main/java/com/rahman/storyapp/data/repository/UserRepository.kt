@@ -35,6 +35,10 @@ class UserRepository(private val apiService: ApiService, private val preference:
         return apiService.getStories()
     }
 
+    suspend fun getStoriesLocation(): StoriesResponse {
+        return apiService.getStoriesWithLocation()
+    }
+
     suspend fun addNewStory(photo: MultipartBody.Part, desc: RequestBody): ErrorResponse {
         return apiService.addNewStories(photo, desc)
     }
