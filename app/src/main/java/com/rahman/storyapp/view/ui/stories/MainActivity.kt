@@ -84,9 +84,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun viewModelObserver() {
         storiesViewModel.isLoading.observe(this) { isLoading ->
-            binding.emptyMsg.visibility = if (isLoading || adapterStory.itemCount > 0) View.GONE else View.VISIBLE
-            binding.circularProgressbar.visibility = if (isLoading && adapterStory.itemCount < 1) View.VISIBLE else View.GONE
-            binding.linearProgressbar.visibility = if (isLoading && adapterStory.itemCount > 0) View.VISIBLE else View.GONE
+            binding.emptyMsg.visibility = if (isLoading || storiesViewModel.stories.value != null) View.GONE else View.VISIBLE
+            binding.circularProgressbar.visibility = if (isLoading && storiesViewModel.stories.value == null) View.VISIBLE else View.GONE
+            binding.linearProgressbar.visibility = if (isLoading && storiesViewModel.stories.value != null) View.VISIBLE else View.GONE
         }
         storiesViewModel.message.observe(this) { msg ->
             if (!msg.isNullOrEmpty()) DisplayMessage.showToast(this, msg)
