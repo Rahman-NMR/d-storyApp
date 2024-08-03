@@ -42,6 +42,8 @@
     <string name="msg_empty_image">No images added</string>
     <string name="msg_empty_description">Description cannot be empty</string>
     <string name="find_stories">Find Stories</string>
+    <string name="current_location">Add current location</string>
+    <string name="location_not_found">Location not found</string>
 
     <string name="title_activity_maps" translatable="false">MapsActivity</string>
     <string name="text_empty" translatable="false">-</string>

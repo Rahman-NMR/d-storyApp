@@ -42,4 +42,6 @@
     <string name="msg_empty_image">Tidak ada gambar yang ditambahkan</string>
     <string name="msg_empty_description">Deskripsi tidak bisa kosong</string>
     <string name="find_stories">Temukan Cerita</string>
+    <string name="current_location">Tambahkan lokasi saat ini</string>
+    <string name="location_not_found">Lokasi tidak ditemukan</string>
 </resources>

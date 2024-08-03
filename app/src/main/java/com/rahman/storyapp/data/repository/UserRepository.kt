@@ -7,8 +7,10 @@ import com.rahman.storyapp.data.remote.response.ErrorResponse
 import com.rahman.storyapp.data.remote.response.LoginResponse
 import com.rahman.storyapp.data.remote.response.StoriesResponse
 import kotlinx.coroutines.flow.first
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class UserRepository(private val apiService: ApiService, private val preference: UserPreferences) {
     suspend fun register(name: String, email: String, password: String): ErrorResponse {
@@ -39,8 +41,12 @@ class UserRepository(private val apiService: ApiService, private val preference:
         return apiService.getStoriesWithLocation()
     }
 
-    suspend fun addNewStory(photo: MultipartBody.Part, desc: RequestBody): ErrorResponse {
-        return apiService.addNewStories(photo, desc)
+    suspend fun addNewStory(photo: MultipartBody.Part, desc: RequestBody, lat: Double?, lng: Double?): ErrorResponse {
+        val latitudeBody = lat.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val longitudeBody = lng.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+
+        return if (lat != null && lng != null) apiService.addNewStoriesLocation(photo, desc, latitudeBody, longitudeBody)
+        else apiService.addNewStories(photo, desc)
     }
 
     companion object {

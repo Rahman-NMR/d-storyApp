@@ -136,13 +136,28 @@
                     android:singleLine="false" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/materialCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/current_location"
+                app:layout_constraintEnd_toStartOf="@+id/button_add"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@id/txt_layout_desc"
+                app:layout_constraintTop_toBottomOf="@id/txt_layout_desc" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/upload_story"
                 app:layout_constraintEnd_toEndOf="@id/txt_layout_desc"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/materialCheckBox"
                 app:layout_constraintTop_toBottomOf="@id/txt_layout_desc" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

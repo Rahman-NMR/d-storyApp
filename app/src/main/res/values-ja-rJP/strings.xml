@@ -42,4 +42,6 @@
     <string name="msg_empty_image">画像は追加されていません</string>
     <string name="msg_empty_description">説明は空欄にできません</string>
     <string name="find_stories">ストーリーを探す</string>
+    <string name="current_location">現在の場所を追加する</string>
+    <string name="location_not_found">場所が見つかりません</string>
 </resources>
