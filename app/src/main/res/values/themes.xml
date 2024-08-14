@@ -55,9 +55,19 @@
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
         <item name="android:letterSpacing">0.03</item>
         <item name="snackbarStyle">@style/Widget.App.Snackbar</item>
+        <item name="floatingActionButtonSmallSecondaryStyle">@style/fab.small</item>
     </style>
 
     <style name="Widget.App.Snackbar" parent="Widget.Material3.Snackbar">
         <item name="animationMode">slide</item>
+    </style>
+
+    <style name="fab.small" parent="Base.Widget.Material3.FloatingActionButton.Small">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Material3.ExtendedFloatingActionButton.Secondary</item>
+        <item name="shapeAppearanceOverlay">@style/corner</item>
+    </style>
+
+    <style name="corner">
+        <item name="cornerSize">100%</item>
     </style>
 </resources>

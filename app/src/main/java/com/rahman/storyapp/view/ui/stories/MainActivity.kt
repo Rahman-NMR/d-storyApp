@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityMainBinding
@@ -37,9 +38,36 @@ class MainActivity : AppCompatActivity() {
         startup()
         viewModelObserver()
         uiAction()
+        fabScrollToTop()
     }
 
     private fun alertDialog(userViewModel: UserViewModel) {
+    private fun fabScrollToTop() {
+        val fabToTop = binding.fabToTop
+        val fabAddStory = binding.fabAddStory
+        val rvScrolling = binding.rvListStory
+        var isFabVisible = false
+
+        fabToTop.visibility = View.INVISIBLE
+        rvScrolling.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0 && !isFabVisible) {
+                    fabToTop.show()
+                    fabAddStory.shrink()
+                    isFabVisible = true
+                } else if (dy < 0 && isFabVisible) {
+                    fabToTop.hide()
+                    fabAddStory.extend()
+                    isFabVisible = false
+                }
+            }
+        })
+
+        fabToTop.setOnClickListener {
+            rvScrolling.smoothScrollToPosition(0)
+        }
+    }
+
         MaterialAlertDialogBuilder(this)
             .setCancelable(true)
             .setTitle(getString(R.string.dialog_title))
