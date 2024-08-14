@@ -29,7 +29,7 @@
     <string name="dialog_positive">ログアウト</string>
     <string name="dialog_negative">キャンセル</string>
     <string name="oke">閉じる</string>
-    <string name="desc_fab_add_story">ストーリーの追加ページに移動</string>
+    <string name="desc_fab_to_top">一番上までスクロールする</string>
     <string name="story_unavailable">ストーリーは利用できません</string>
     <string name="story_not_found">ストーリーが見つかりません</string>
     <string name="description">説明</string>
@@ -44,4 +44,5 @@
     <string name="find_stories">ストーリーを探す</string>
     <string name="current_location">現在の場所を追加する</string>
     <string name="location_not_found">場所が見つかりません</string>
+    <string name="retry">リトライ</string>
 </resources>
