@@ -15,16 +15,16 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 import com.rahman.storyapp.R
-import com.rahman.storyapp.data.remote.response.ListStoryItem
+import com.rahman.storyapp.data.database.StoryEntity
 import com.rahman.storyapp.view.ui.stories.DetailStoryActivity
 import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.EXTRA_DESC
 import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.EXTRA_NAME
 import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.EXTRA_PHOTO
 import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.EXTRA_TIME
 
-class AdapterStory : PagingDataAdapter<ListStoryItem, AdapterStory.ViewHolder>(DiffCallback()) {
+class AdapterStory : PagingDataAdapter<StoryEntity, AdapterStory.ViewHolder>(DiffCallback()) {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(listStoryItem: ListStoryItem) {
+        fun bind(listStoryItem: StoryEntity) {
             val photo = itemView.findViewById<ShapeableImageView>(R.id.iv_item_photo)
             val name = itemView.findViewById<MaterialTextView>(R.id.tv_item_name)
             val desc = itemView.findViewById<MaterialTextView>(R.id.tv_item_desc)
@@ -65,12 +65,12 @@ class AdapterStory : PagingDataAdapter<ListStoryItem, AdapterStory.ViewHolder>(D
         if (story != null) holder.bind(story)
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<ListStoryItem>() {
-        override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
+    class DiffCallback : DiffUtil.ItemCallback<StoryEntity>() {
+        override fun areItemsTheSame(oldItem: StoryEntity, newItem: StoryEntity): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
+        override fun areContentsTheSame(oldItem: StoryEntity, newItem: StoryEntity): Boolean {
             return oldItem == newItem
         }
     }

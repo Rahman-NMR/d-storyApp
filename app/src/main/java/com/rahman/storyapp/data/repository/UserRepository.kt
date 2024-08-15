@@ -1,16 +1,18 @@
 package com.rahman.storyapp.data.repository
 
 import androidx.lifecycle.LiveData
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.rahman.storyapp.data.local.UserModel
 import com.rahman.storyapp.data.local.UserPreferences
-import com.rahman.storyapp.data.paging.StoriesPagingSource
+import com.rahman.storyapp.data.database.StoryDatabase
+import com.rahman.storyapp.data.database.StoryEntity
+import com.rahman.storyapp.data.paging.StoryRemoteMediator
 import com.rahman.storyapp.data.remote.api.ApiService
 import com.rahman.storyapp.data.remote.response.ErrorResponse
-import com.rahman.storyapp.data.remote.response.ListStoryItem
 import com.rahman.storyapp.data.remote.response.LoginResponse
 import com.rahman.storyapp.data.remote.response.StoriesResponse
 import kotlinx.coroutines.flow.first
@@ -19,7 +21,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
-class UserRepository(private val apiService: ApiService, private val preference: UserPreferences) {
+class UserRepository(private val apiService: ApiService, private val preference: UserPreferences, private val database: StoryDatabase) {
     suspend fun register(name: String, email: String, password: String): ErrorResponse {
         return apiService.register(name, email, password)
     }
@@ -40,13 +42,15 @@ class UserRepository(private val apiService: ApiService, private val preference:
         preference.logout()
     }
 
-    fun getStories(): LiveData<PagingData<ListStoryItem>> {
+    fun getStories(): LiveData<PagingData<StoryEntity>> {
+        @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(
                 pageSize = 10,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { StoriesPagingSource(apiService) }
+            remoteMediator = StoryRemoteMediator(apiService, database),
+            pagingSourceFactory = { database.storyDao().getStories() }
         ).liveData
     }
 
@@ -65,7 +69,8 @@ class UserRepository(private val apiService: ApiService, private val preference:
     companion object {
         fun getInstance(
             apiService: ApiService,
-            userPreferences: UserPreferences
-        ) = UserRepository(apiService, userPreferences)
+            userPreferences: UserPreferences,
+            database: StoryDatabase
+        ) = UserRepository(apiService, userPreferences, database)
     }
 }
