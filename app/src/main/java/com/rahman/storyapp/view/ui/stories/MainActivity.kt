@@ -2,9 +2,10 @@ package com.rahman.storyapp.view.ui.stories
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -13,6 +14,7 @@ import com.rahman.storyapp.databinding.ActivityMainBinding
 import com.rahman.storyapp.utils.DisplayMessage
 import com.rahman.storyapp.view.ui.WelcomeActivity
 import com.rahman.storyapp.view.ui.stories.adapterview.AdapterStory
+import com.rahman.storyapp.view.ui.stories.adapterview.LoadingStateAdapter
 import com.rahman.storyapp.view.ui.stories.adapterview.PaddingDecoration
 import com.rahman.storyapp.view.viewmodel.ViewModelFactory
 import com.rahman.storyapp.view.viewmodel.stories.StoriesViewModel
@@ -30,26 +32,19 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapterStory = AdapterStory()
-        binding.rvListStory.addItemDecoration(PaddingDecoration(this, 32))
-        binding.rvListStory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvListStory.adapter = adapterStory
-
-        startup()
+        setupAdapter()
         viewModelObserver()
         uiAction()
         fabScrollToTop()
     }
 
-    private fun alertDialog(userViewModel: UserViewModel) {
     private fun fabScrollToTop() {
         val fabToTop = binding.fabToTop
         val fabAddStory = binding.fabAddStory
         val rvScrolling = binding.rvListStory
         var isFabVisible = false
 
-        fabToTop.visibility = View.INVISIBLE
-        rvScrolling.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        val listener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy > 0 && !isFabVisible) {
                     fabToTop.show()
@@ -61,13 +56,12 @@ class MainActivity : AppCompatActivity() {
                     isFabVisible = false
                 }
             }
-        })
-
-        fabToTop.setOnClickListener {
-            rvScrolling.smoothScrollToPosition(0)
         }
+
+        rvScrolling.addOnScrollListener(listener)
     }
 
+    private fun alertDialog() {
         MaterialAlertDialogBuilder(this)
             .setCancelable(true)
             .setTitle(getString(R.string.dialog_title))
@@ -82,21 +76,47 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun startup() {
-        storiesViewModel.clearMsg()
-        storiesViewModel.showStories()
+    private fun setupAdapter() {
+        adapterStory = AdapterStory().apply {
+            addLoadStateListener { loadState ->
+                val load = loadState.refresh is LoadState.Loading
+                val empty = itemCount < 1
+
+                binding.circularProgressbar.isVisible = load && empty
+                binding.linearProgressbar.isVisible = load && !empty
+                binding.rvListStory.isVisible = !empty
+                binding.emptyMsg.isVisible = empty && !load
+                binding.retryButton.isVisible = empty && !load
+
+                val errorState = loadState.source.refresh as? LoadState.Error
+                val errorMsg = errorState?.let { it.error.localizedMessage?.substringAfter(": ") ?: "Unknown Error" }
+                if (errorMsg != null) DisplayMessage.showToast(this@MainActivity, errorMsg)
+            }
+        }
+
+        binding.rvListStory.apply {
+            addItemDecoration(PaddingDecoration(this@MainActivity, 32))
+            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+            adapter = adapterStory.withLoadStateFooter(footer = LoadingStateAdapter { adapterStory.retry() })
+        }
+    }
+
+    private fun adapterRefresh() {
+        adapterStory.refresh()
     }
 
     private fun uiAction() {
         binding.fabAddStory.setOnClickListener { startActivity(Intent(this, AddStoriesActivity::class.java)) }
+        binding.retryButton.setOnClickListener { adapterRefresh() }
+        binding.fabToTop.setOnClickListener { binding.rvListStory.smoothScrollToPosition(0) }
         binding.swipeRefresh.setOnRefreshListener {
-            startup()
+            adapterRefresh()
             binding.swipeRefresh.isRefreshing = false
         }
         binding.topAppBarMain.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_logout -> {
-                    alertDialog(userViewModel)
+                    alertDialog()
                     true
                 }
 
@@ -111,19 +131,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun viewModelObserver() {
-        storiesViewModel.isLoading.observe(this) { isLoading ->
-            binding.emptyMsg.visibility = if (isLoading || storiesViewModel.stories.value != null) View.GONE else View.VISIBLE
-            binding.circularProgressbar.visibility = if (isLoading && storiesViewModel.stories.value == null) View.VISIBLE else View.GONE
-            binding.linearProgressbar.visibility = if (isLoading && storiesViewModel.stories.value != null) View.VISIBLE else View.GONE
-        }
-        storiesViewModel.message.observe(this) { msg ->
-            if (!msg.isNullOrEmpty()) DisplayMessage.showToast(this, msg)
-        }
         storiesViewModel.stories.observe(this) { story ->
-            if (story != null) {
-                story.listStory.sortedByDescending { it.createdAt }
-                adapterStory.submitList(story.listStory)
-            }
+            adapterStory.submitData(lifecycle, story)
         }
     }
 

@@ -51,6 +51,8 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.androidx.exifinterface)
 
+    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.androidx.room.paging)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.retrofit)

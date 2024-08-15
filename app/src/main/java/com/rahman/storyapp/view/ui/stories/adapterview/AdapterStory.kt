@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -22,7 +22,7 @@ import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.EXTRA_N
 import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.EXTRA_PHOTO
 import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.EXTRA_TIME
 
-class AdapterStory : ListAdapter<ListStoryItem, AdapterStory.ViewHolder>(DiffCallback()) {
+class AdapterStory : PagingDataAdapter<ListStoryItem, AdapterStory.ViewHolder>(DiffCallback()) {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(listStoryItem: ListStoryItem) {
             val photo = itemView.findViewById<ShapeableImageView>(R.id.iv_item_photo)
@@ -35,7 +35,8 @@ class AdapterStory : ListAdapter<ListStoryItem, AdapterStory.ViewHolder>(DiffCal
             desc.visibility = if (listStoryItem.description.isNullOrEmpty()) View.GONE else View.VISIBLE
             Glide.with(itemView.context).load(listStoryItem.photoUrl)
                 .placeholder(R.drawable.img_placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(true)
                 .into(photo)
             name.text = listStoryItem.name
             desc.text = listStoryItem.description
@@ -60,7 +61,8 @@ class AdapterStory : ListAdapter<ListStoryItem, AdapterStory.ViewHolder>(DiffCal
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val story = getItem(position)
+        if (story != null) holder.bind(story)
     }
 
     class DiffCallback : DiffUtil.ItemCallback<ListStoryItem>() {

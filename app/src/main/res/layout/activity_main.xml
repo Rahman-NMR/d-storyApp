@@ -67,6 +67,15 @@
             android:textSize="20sp"
             android:visibility="gone"
             tools:visibility="visible" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/retry_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/retry"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -87,8 +96,10 @@
         android:layout_margin="24dp"
         android:contentDescription="@string/desc_fab_to_top"
         android:src="@drawable/icon_arrow_upward_24"
+        android:visibility="invisible"
         app:fabSize="mini"
-        app:maxImageSize="20dp" />
+        app:maxImageSize="20dp"
+        tools:visibility="visible" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/linear_progressbar"
