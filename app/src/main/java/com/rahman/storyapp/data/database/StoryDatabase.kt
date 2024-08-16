@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [StoryEntity::class, RemoteKeysEntity::class], version = 1)
+@Database(entities = [StoryEntity::class, RemoteKeysEntity::class], version = 2)
 abstract class StoryDatabase : RoomDatabase() {
     abstract fun storyDao(): StoryDao
     abstract fun remoteKeysDao(): RemoteKeysDao
@@ -17,7 +17,7 @@ abstract class StoryDatabase : RoomDatabase() {
         @JvmStatic
         fun getDatabase(context: Context): StoryDatabase {
             return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: Room.databaseBuilder(context.applicationContext, StoryDatabase::class.java, "stories")
+                INSTANCE ?: Room.databaseBuilder(context.applicationContext, StoryDatabase::class.java, "stories_db")
                     .fallbackToDestructiveMigration()
                     .build()
                     .also { INSTANCE = it }

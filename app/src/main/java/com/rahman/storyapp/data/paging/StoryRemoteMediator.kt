@@ -4,6 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import androidx.room.withTransaction
 import com.rahman.storyapp.data.database.RemoteKeysEntity
 import com.rahman.storyapp.data.database.StoryDatabase
 import com.rahman.storyapp.data.database.StoryEntity
@@ -16,7 +17,7 @@ class StoryRemoteMediator(private val apiService: ApiService, private val databa
     }
 
     override suspend fun initialize(): InitializeAction {
-        return InitializeAction.LAUNCH_INITIAL_REFRESH
+        return InitializeAction.SKIP_INITIAL_REFRESH
     }
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, StoryEntity>): MediatorResult {
@@ -45,31 +46,33 @@ class StoryRemoteMediator(private val apiService: ApiService, private val databa
             val response = apiService.getStories(page, state.config.pageSize)
             val endOfPaginationReached = response.listStory.isEmpty()
 
-            if (loadType == LoadType.REFRESH) {
-                database.remoteKeysDao().deleteRemoteKeys()
-                database.storyDao().clearStories()
-            }
+            database.withTransaction {
+                if (loadType == LoadType.REFRESH) {
+                    database.remoteKeysDao().deleteRemoteKeys()
+                    database.storyDao().clearStories()
+                }
 
-            val prevKey = if (page == 1) null else page - 1
-            val nextKey = if (endOfPaginationReached) null else page + 1
+                val prevKey = if (page == 1) null else page - 1
+                val nextKey = if (endOfPaginationReached) null else page + 1
 
-            val keys = response.listStory.map { story ->
-                RemoteKeysEntity(id = story.id ?: "", prevKey = prevKey, nextKey = nextKey)
-            }
-            val stories = response.listStory.map { story ->
-                StoryEntity(
-                    id = story.id ?: "",
-                    createdAt = story.createdAt,
-                    photoUrl = story.photoUrl,
-                    name = story.name,
-                    description = story.description,
-                    lon = story.lon,
-                    lat = story.lat
-                )
-            }
+                val keys = response.listStory.map { story ->
+                    RemoteKeysEntity(id = story.id ?: "", prevKey = prevKey, nextKey = nextKey)
+                }
+                val stories = response.listStory.map { story ->
+                    StoryEntity(
+                        id = story.id ?: "",
+                        createdAt = story.createdAt,
+                        photoUrl = story.photoUrl,
+                        name = story.name,
+                        description = story.description,
+                        lon = story.lon,
+                        lat = story.lat
+                    )
+                }
 
-            database.remoteKeysDao().insertRemoteKeys(keys)
-            database.storyDao().insertStories(stories)
+                database.remoteKeysDao().insertRemoteKeys(keys)
+                database.storyDao().insertStories(stories)
+            }
 
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (exception: Exception) {
