@@ -20,6 +20,7 @@ android {
         buildConfigField("String", "BASE_URL", "\"${findProperty("base_url")}\"")
     }
 
+    testOptions.unitTests.isReturnDefaultValues = true
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -68,6 +69,13 @@ dependencies {
     implementation(libs.play.services.location)
 
     testImplementation(libs.junit)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.core.testing)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
 }

@@ -22,7 +22,7 @@ import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.EXTRA_N
 import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.EXTRA_PHOTO
 import com.rahman.storyapp.view.ui.stories.DetailStoryActivity.Companion.EXTRA_TIME
 
-class AdapterStory : PagingDataAdapter<StoryEntity, AdapterStory.ViewHolder>(DiffCallback()) {
+class AdapterStory : PagingDataAdapter<StoryEntity, AdapterStory.ViewHolder>(DiffCallback) {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(listStoryItem: StoryEntity) {
             val photo = itemView.findViewById<ShapeableImageView>(R.id.iv_item_photo)
@@ -65,13 +65,15 @@ class AdapterStory : PagingDataAdapter<StoryEntity, AdapterStory.ViewHolder>(Dif
         if (story != null) holder.bind(story)
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<StoryEntity>() {
-        override fun areItemsTheSame(oldItem: StoryEntity, newItem: StoryEntity): Boolean {
-            return oldItem.id == newItem.id
-        }
+    companion object {
+        val DiffCallback = object : DiffUtil.ItemCallback<StoryEntity>() {
+            override fun areItemsTheSame(oldItem: StoryEntity, newItem: StoryEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-        override fun areContentsTheSame(oldItem: StoryEntity, newItem: StoryEntity): Boolean {
-            return oldItem == newItem
+            override fun areContentsTheSame(oldItem: StoryEntity, newItem: StoryEntity): Boolean {
+                return oldItem == newItem
+            }
         }
     }
 }
