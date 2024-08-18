@@ -9,6 +9,7 @@ import com.rahman.storyapp.data.database.RemoteKeysEntity
 import com.rahman.storyapp.data.database.StoryDatabase
 import com.rahman.storyapp.data.database.StoryEntity
 import com.rahman.storyapp.data.remote.api.ApiService
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalPagingApi::class)
 class StoryRemoteMediator(private val apiService: ApiService, private val database: StoryDatabase) : RemoteMediator<Int, StoryEntity>() {
@@ -17,7 +18,7 @@ class StoryRemoteMediator(private val apiService: ApiService, private val databa
     }
 
     override suspend fun initialize(): InitializeAction {
-        return InitializeAction.SKIP_INITIAL_REFRESH
+        return InitializeAction.LAUNCH_INITIAL_REFRESH
     }
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, StoryEntity>): MediatorResult {
@@ -46,6 +47,7 @@ class StoryRemoteMediator(private val apiService: ApiService, private val databa
             val response = apiService.getStories(page, state.config.pageSize)
             val endOfPaginationReached = response.listStory.isEmpty()
 
+            delay(1234)
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
                     database.remoteKeysDao().deleteRemoteKeys()

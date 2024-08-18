@@ -1,9 +1,7 @@
 package com.rahman.storyapp.view.viewmodel.user
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.rahman.storyapp.data.repository.UserRepository
-import kotlinx.coroutines.launch
 
 class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     suspend fun isLogin(): Boolean {
@@ -11,9 +9,7 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
         return user.userId.isNotEmpty() && user.token.isNotEmpty()
     }
 
-    fun logout() {
-        viewModelScope.launch {
-            userRepository.logout()
-        }
+    suspend fun logout() {
+        userRepository.logout()
     }
 }
