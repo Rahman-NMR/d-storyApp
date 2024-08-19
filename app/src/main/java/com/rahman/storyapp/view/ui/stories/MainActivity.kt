@@ -5,13 +5,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rahman.storyapp.R
-import com.rahman.storyapp.data.database.StoryDatabase
 import com.rahman.storyapp.databinding.ActivityMainBinding
 import com.rahman.storyapp.utils.DisplayMessage
 import com.rahman.storyapp.view.ui.WelcomeActivity
@@ -21,7 +19,6 @@ import com.rahman.storyapp.view.ui.stories.adapterview.PaddingDecoration
 import com.rahman.storyapp.view.viewmodel.ViewModelFactory
 import com.rahman.storyapp.view.viewmodel.stories.StoriesViewModel
 import com.rahman.storyapp.view.viewmodel.user.UserViewModel
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
@@ -80,16 +77,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun logoutUser() {
-        lifecycleScope.launch {
-            userViewModel.logout()
-            StoryDatabase.getDatabase(this@MainActivity).apply {
-                remoteKeysDao().deleteRemoteKeys()
-                storyDao().clearStories()
-            }
+        userViewModel.logout()
 
-            startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
-            finish()
-        }
+        startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
+        finish()
     }
 
     private fun loginSession() {

@@ -13,10 +13,6 @@ import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalPagingApi::class)
 class StoryRemoteMediator(private val apiService: ApiService, private val database: StoryDatabase) : RemoteMediator<Int, StoryEntity>() {
-    private companion object {
-        const val INITIAL_PAGE_INDEX = 1
-    }
-
     override suspend fun initialize(): InitializeAction {
         return InitializeAction.LAUNCH_INITIAL_REFRESH
     }
@@ -100,5 +96,9 @@ class StoryRemoteMediator(private val apiService: ApiService, private val databa
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()?.let { story ->
             database.remoteKeysDao().getRemoteKeysId(story.id)
         }
+    }
+
+    private companion object {
+        const val INITIAL_PAGE_INDEX = 1
     }
 }

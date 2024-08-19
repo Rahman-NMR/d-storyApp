@@ -6,6 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
+import androidx.room.withTransaction
 import com.rahman.storyapp.data.local.UserModel
 import com.rahman.storyapp.data.local.UserPreferences
 import com.rahman.storyapp.data.database.StoryDatabase
@@ -40,6 +41,10 @@ class UserRepository(private val apiService: ApiService, private val preference:
 
     suspend fun logout() {
         preference.logout()
+        database.withTransaction {
+            database.remoteKeysDao().deleteRemoteKeys()
+            database.storyDao().clearStories()
+        }
     }
 
     fun getStories(): LiveData<PagingData<StoryEntity>> {
