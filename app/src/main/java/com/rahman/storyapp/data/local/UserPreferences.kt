@@ -15,6 +15,10 @@ import java.io.IOException
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "session")
 
 class UserPreferences private constructor(private val dataStore: DataStore<Preferences>) {
+    private val name = stringPreferencesKey("session_name")
+    private val uid = stringPreferencesKey("session_uid")
+    private val token = stringPreferencesKey("session_token")
+
     val getUser: Flow<UserModel> = dataStore.data
         .catch { exception ->
             if (exception is IOException) {
@@ -42,18 +46,6 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
     }
 
     companion object {
-        @Volatile
-        private var INSTANCE: UserPreferences? = null
-        private val name = stringPreferencesKey("session_name")
-        private val uid = stringPreferencesKey("session_uid")
-        private val token = stringPreferencesKey("session_token")
-
-        fun getInstance(dataStore: DataStore<Preferences>): UserPreferences {
-            return INSTANCE ?: synchronized(this) {
-                val instance = UserPreferences(dataStore)
-                INSTANCE = instance
-                instance
-            }
-        }
+        fun getInstance(dataStore: DataStore<Preferences>) = UserPreferences(dataStore)
     }
 }

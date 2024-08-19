@@ -20,7 +20,10 @@ android {
         buildConfigField("String", "BASE_URL", "\"${findProperty("base_url")}\"")
     }
 
-    testOptions.unitTests.isReturnDefaultValues = true
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+        animationsDisabled = true
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -78,4 +81,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.core.testing)
     androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.espresso.intents)
+    implementation(libs.androidx.espresso.idling.resource)
 }

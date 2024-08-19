@@ -9,6 +9,7 @@ import com.rahman.storyapp.data.local.UserModel
 import com.rahman.storyapp.data.remote.response.ErrorResponse
 import com.rahman.storyapp.data.remote.response.LoginResponse
 import com.rahman.storyapp.data.repository.UserRepository
+import com.rahman.storyapp.utils.wrapEspressoIdlingResource
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -26,33 +27,35 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
         viewModelScope.launch {
             _isLoading.value = true
 
-            try {
-                val response = userRepository.login(email, password)
-                val msg = response.message
+            wrapEspressoIdlingResource {
+                try {
+                    val response = userRepository.login(email, password)
+                    val msg = response.message
 
-                _loginResult.value = response
-                _message.value = msg
+                    _loginResult.value = response
+                    _message.value = msg
 
-                if (response.error == false) {
-                    val result = response.loginResult
-                    if (result != null) {
-                        val name = result.name ?: ""
-                        val uid = result.userId ?: ""
-                        val token = result.token ?: ""
-                        userRepository.saveUser(UserModel(name, uid, token))
+                    if (response.error == false) {
+                        val result = response.loginResult
+                        if (result != null) {
+                            val name = result.name ?: ""
+                            val uid = result.userId ?: ""
+                            val token = result.token ?: ""
+                            userRepository.saveUser(UserModel(name, uid, token))
+                        }
                     }
-                }
-            } catch (e: HttpException) {
-                val jsonInString = e.response()?.errorBody()?.string()
-                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-                val errorMessage = errorBody.message
+                } catch (e: HttpException) {
+                    val jsonInString = e.response()?.errorBody()?.string()
+                    val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+                    val errorMessage = errorBody.message
 
-                _message.value = errorMessage
-            } catch (e: Exception) {
-                val msg = e.message?.substringAfter(": ") ?: "Unknown Error"
-                _message.value = msg
-            } finally {
-                _isLoading.value = false
+                    _message.value = errorMessage
+                } catch (e: Exception) {
+                    val msg = e.message?.substringAfter(": ") ?: "Unknown Error"
+                    _message.value = msg
+                } finally {
+                    _isLoading.value = false
+                }
             }
         }
     }

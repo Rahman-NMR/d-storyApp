@@ -1,7 +1,6 @@
 package com.rahman.storyapp.view.custom
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
@@ -23,7 +22,11 @@ class CustomEditText @JvmOverloads constructor(
         val paddingMed = resources.getDimensionPixelSize(R.dimen.medium_dimens)
         val paddingNor = resources.getDimensionPixelSize(R.dimen.normal_dimens)
         setPadding(paddingNor, paddingNor, paddingNor, paddingNor)
+
         compoundDrawablePadding = paddingMed
+        minHeight = resources.getDimensionPixelSize(R.dimen.min_height)
+        background = ContextCompat.getDrawable(context, R.drawable.bg_edittext_stroke2_8)
+        textAlignment = TEXT_ALIGNMENT_VIEW_START
 
         attrs?.let {
             val typeArray = context.obtainStyledAttributes(it, R.styleable.CustomEditText, 0, 0)
@@ -61,13 +64,6 @@ class CustomEditText @JvmOverloads constructor(
 
             override fun afterTextChanged(s: Editable) {}
         })
-    }
-
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        minHeight = resources.getDimensionPixelSize(R.dimen.min_height)
-        background = ContextCompat.getDrawable(context, R.drawable.bg_edittext_stroke2_8)
-        textAlignment = TEXT_ALIGNMENT_VIEW_START
     }
 
     private fun setButtonDrawables(start: Drawable? = null, top: Drawable? = null, end: Drawable? = null, bottom: Drawable? = null) {
