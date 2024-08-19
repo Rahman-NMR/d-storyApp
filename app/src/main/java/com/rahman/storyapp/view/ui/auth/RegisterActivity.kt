@@ -8,6 +8,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityRegisterBinding
 import com.rahman.storyapp.utils.DisplayMessage
@@ -55,9 +56,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun ActivityRegisterBinding.viewModel() {
         registerViewModel.clearMsg()
-        registerViewModel.isLoading.observe(this@RegisterActivity) {
-            registerProgressbar.visibility = if (it) View.VISIBLE else View.GONE
-        }
+        registerViewModel.isLoading.observe(this@RegisterActivity) { registerProgressbar.isVisible = it }
         registerViewModel.message.observe(this@RegisterActivity) { msg ->
             if (msg != null) DisplayMessage.showToast(this@RegisterActivity, msg)
         }

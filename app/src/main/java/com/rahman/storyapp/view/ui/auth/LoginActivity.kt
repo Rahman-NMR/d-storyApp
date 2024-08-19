@@ -8,6 +8,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityLoginBinding
 import com.rahman.storyapp.utils.DisplayMessage
@@ -55,9 +56,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun ActivityLoginBinding.viewModel() {
         loginViewModel.clearMsg()
-        loginViewModel.isLoading.observe(this@LoginActivity) {
-            loginProgressbar.visibility = if (it) View.VISIBLE else View.GONE
-        }
+        loginViewModel.isLoading.observe(this@LoginActivity) { loginProgressbar.isVisible = it }
         loginViewModel.message.observe(this@LoginActivity) { msg ->
             if (msg != null) DisplayMessage.showToast(this@LoginActivity, msg)
         }

@@ -15,25 +15,15 @@ import com.rahman.storyapp.view.viewmodel.user.UserViewModel
 class ViewModelFactory private constructor(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
-            return RegisterViewModel(repository) as T
+        return when {
+            modelClass.isAssignableFrom(RegisterViewModel::class.java) -> RegisterViewModel(repository) as T
+            modelClass.isAssignableFrom(LoginViewModel::class.java) -> LoginViewModel(repository) as T
+            modelClass.isAssignableFrom(UserViewModel::class.java) -> UserViewModel(repository) as T
+            modelClass.isAssignableFrom(StoriesViewModel::class.java) -> StoriesViewModel(repository) as T
+            modelClass.isAssignableFrom(StoriesLocationViewModel::class.java) -> StoriesLocationViewModel(repository) as T
+            modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> AddStoryViewModel(repository) as T
+            else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
-        if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
-            return LoginViewModel(repository) as T
-        }
-        if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
-            return UserViewModel(repository) as T
-        }
-        if (modelClass.isAssignableFrom(StoriesViewModel::class.java)) {
-            return StoriesViewModel(repository) as T
-        }
-        if (modelClass.isAssignableFrom(StoriesLocationViewModel::class.java)) {
-            return StoriesLocationViewModel(repository) as T
-        }
-        if (modelClass.isAssignableFrom(AddStoryViewModel::class.java)) {
-            return AddStoryViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }
 
     companion object {

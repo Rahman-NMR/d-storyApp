@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.rahman.storyapp.R
@@ -52,8 +53,7 @@ class AddStoriesActivity : AppCompatActivity() {
     }
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permission ->
         when {
-            permission[ACCESS_FINE_LOCATION] ?: false -> getLocation()
-            permission[ACCESS_COARSE_LOCATION] ?: false -> getLocation()
+            permission[ACCESS_FINE_LOCATION] ?: false || permission[ACCESS_COARSE_LOCATION] ?: false -> getLocation()
             else -> binding.materialCheckBox.isChecked = false
         }
     }
@@ -113,9 +113,7 @@ class AddStoriesActivity : AppCompatActivity() {
     }
 
     private fun viewModelObserver() {
-        addStoryViewModel.isLoading.observe(this) {
-            binding.addStoriesProgressbar.visibility = if (it) View.VISIBLE else View.GONE
-        }
+        addStoryViewModel.isLoading.observe(this) { binding.addStoriesProgressbar.isVisible = it }
         addStoryViewModel.message.observe(this) { msg ->
             if (msg != null) DisplayMessage.showToast(this, msg)
         }
