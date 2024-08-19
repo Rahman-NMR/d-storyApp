@@ -3,40 +3,40 @@ package com.rahman.storyapp.view.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.text.Selection.setSelection
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityRegisterBinding
 import com.rahman.storyapp.utils.DisplayMessage
-import com.rahman.storyapp.view.viewmodel.user.RegisterViewModel
 import com.rahman.storyapp.view.viewmodel.ViewModelFactory
+import com.rahman.storyapp.view.viewmodel.user.RegisterViewModel
 
 class RegisterActivity : AppCompatActivity() {
     private var _binding: ActivityRegisterBinding? = null
     private val binding get() = _binding!!
+    private val registerViewModel: RegisterViewModel by viewModels { ViewModelFactory.getInstance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModelFactory = ViewModelFactory.getInstance(this)
-        val registerViewModel = ViewModelProvider(this, viewModelFactory)[RegisterViewModel::class.java]
-
         with(binding) {
-            viewModel(registerViewModel)
-            uiAction(registerViewModel)
+            viewModel()
+            uiAction()
         }
     }
 
-    private fun ActivityRegisterBinding.uiAction(registerViewModel: RegisterViewModel) {
+    private fun ActivityRegisterBinding.uiAction() {
         topAppBarRegister.setNavigationOnClickListener { finish() }
         cbShowPassRegister.setOnCheckedChangeListener { _, isChecked ->
             edRegisterPassword.inputType =
                 if (isChecked) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
                 else InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            setSelection(edRegisterPassword.text, edRegisterPassword.text?.length ?: 0)
         }
         actionRegister.setOnClickListener {
             hideKeyboard(currentFocus ?: View(this@RegisterActivity))
@@ -53,7 +53,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun ActivityRegisterBinding.viewModel(registerViewModel: RegisterViewModel) {
+    private fun ActivityRegisterBinding.viewModel() {
         registerViewModel.clearMsg()
         registerViewModel.isLoading.observe(this@RegisterActivity) {
             registerProgressbar.visibility = if (it) View.VISIBLE else View.GONE

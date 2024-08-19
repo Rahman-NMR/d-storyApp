@@ -3,41 +3,41 @@ package com.rahman.storyapp.view.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.text.Selection.setSelection
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.rahman.storyapp.R
 import com.rahman.storyapp.databinding.ActivityLoginBinding
 import com.rahman.storyapp.utils.DisplayMessage
 import com.rahman.storyapp.view.ui.WelcomeActivity
-import com.rahman.storyapp.view.viewmodel.user.LoginViewModel
 import com.rahman.storyapp.view.viewmodel.ViewModelFactory
+import com.rahman.storyapp.view.viewmodel.user.LoginViewModel
 
 class LoginActivity : AppCompatActivity() {
     private var _binding: ActivityLoginBinding? = null
     private val binding get() = _binding!!
+    private val loginViewModel: LoginViewModel by viewModels { ViewModelFactory.getInstance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModelFactory = ViewModelFactory.getInstance(this)
-        val loginViewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
-
         with(binding) {
-            viewModel(loginViewModel)
-            uiAction(loginViewModel)
+            viewModel()
+            uiAction()
         }
     }
 
-    private fun ActivityLoginBinding.uiAction(loginViewModel: LoginViewModel) {
+    private fun ActivityLoginBinding.uiAction() {
         topAppBarLogin.setNavigationOnClickListener { finish() }
         cbShowPassLogin.setOnCheckedChangeListener { _, isChecked ->
             edLoginPassword.inputType =
                 if (isChecked) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
                 else InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            setSelection(edLoginPassword.text, edLoginPassword.text?.length ?: 0)
         }
         actionLogin.setOnClickListener {
             hideKeyboard(currentFocus ?: View(this@LoginActivity))
@@ -53,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun ActivityLoginBinding.viewModel(loginViewModel: LoginViewModel) {
+    private fun ActivityLoginBinding.viewModel() {
         loginViewModel.clearMsg()
         loginViewModel.isLoading.observe(this@LoginActivity) {
             loginProgressbar.visibility = if (it) View.VISIBLE else View.GONE
